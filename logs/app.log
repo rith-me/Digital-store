@@ -1,0 +1,6 @@
+[2025-03-06T15:54:09.585884+00:00] my_app.INFO: សារប្រតិបត្តិការ"INSERT INTO users (`user_pass`, `user_email`, `user_activation_key`) VALUES (:user_pass, :user_email, :user_activation_key)" [] []
+[2025-03-06T15:55:59.426928+00:00] my_app.INFO: សារប្រតិបត្តិការ "INSERT INTO users (`user_pass`,`user_email`,`user_activation_key`) VALUES ('$2y$10$RLshOpB5GY2ciWicdx5H3uk8fOSEzzJnJdQYyub4iKlXD0IZMtEjC','mytime2711@gmail.com','594860')" [] []
+[2025-03-06T16:00:27.117677+00:00] my_app.INFO: សារប្រតិបត្តិការ "INSERT INTO users (`user_pass`,`user_email`,`user_activation_key`) VALUES ('$2y$10$.ROe1vyE1zAm6.mY7bz9Yu9ulBxxSiv7CnUmHrO4yne8sKCmxQ9BG','mytime2711@gmail.com','812388')" [] []
+[2025-03-06T16:08:39.105266+00:00] my_app.INFO: សារប្រតិបត្តិការ "INSERT INTO cart (`user_id`,`product_id`,`price`,`user_type`) VALUES ('333','65','349.0000','0')" [] []
+[2025-03-06T16:08:52.426542+00:00] my_app.INFO: សារប្រតិបត្តិការ "INSERT INTO orders (`customer_id`,`order_status`,`order_hash`,`order_total`) VALUES ('333','pending','gd_order_5mfEwE22RXcPq','349')" [] []
+[2025-03-06T16:08:52.499595+00:00] my_app.INFO: សារប្រតិបត្តិការ "INSERT INTO orders_meta (`customer_id`,`parent_id`,`product_id`,`price`) VALUES ('333','8370','65','349')" [] []
