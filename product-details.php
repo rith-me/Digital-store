@@ -1,4 +1,6 @@
 <?php require('inc/header.php');
+// $api = new APIClient();
+
 $query = new query();
 $shopAction = new shopAction();
 if (!isset($_GET['id'])) {
@@ -6,6 +8,7 @@ if (!isset($_GET['id'])) {
 } else {
    $p_id = $_GET['id'];
    $p_data = $query->fetchData("products", "*", "id='$p_id' and product_status='publish'");
+   // $response = $api->callAPI("/public/products/$p_id");
    if (count($p_data) == 0) {
       header("location: index.php");
    }

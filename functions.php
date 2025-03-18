@@ -22,22 +22,22 @@ function rndmString($length = 5, $prefilx = "", $characters = '0123456789abcdefg
     }
     return $prefilx . $randomString;
 }
-class query extends database
+class query //extends database //APIClient
 {
     function fetchData($table, $fields = "*", $condition = "", $order = "", $sort = "", $limit = "")
     {
-        $con = $this->connect();
-        $q = "SELECT $fields FROM $table";
-        if ($condition != "") {
-            $q .= " WHERE $condition ";
-        }
-        if ($limit != "") {
-            $q .= " limit $limit ";
-        }
-        $q = $con->prepare($q);
-        $q->execute();
-        $r = $q->fetchAll(PDO::FETCH_ASSOC);
-        return $r;
+        // $con = $this->connect();
+        // $q = "SELECT $fields FROM $table";
+        // if ($condition != "") {
+        //     $q .= " WHERE $condition ";
+        // }
+        // if ($limit != "") {
+        //     $q .= " limit $limit ";
+        // }
+        // $q = $con->prepare($q);
+        // $q->execute();
+        // $r = $q->fetchAll(PDO::FETCH_ASSOC);
+        return $r = [];
     }
     function insertData($table, $data)
     {

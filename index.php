@@ -1,11 +1,14 @@
 <?php require('inc/header.php');
-$query = new query();
-$p_data_9 = $query->fetchData("products", "*", "", "", "", 9);
-// print_r($p_data_9);
-$p_data_6 = $query->fetchData("products", "*", "", "", "", 6);
-$p_data_1 = $query->getProducts();
+// $query = new query();
+// $p_data_9 = $query->fetchData("products", "*", "", "", "", 9);
+// // print_r($p_data_9);
+// $p_data_6 = $query->fetchData("products", "*", "", "", "", 6);
+// $p_data_1 = $query->getProducts();
 // print_r($p_data_1);
-
+$api = new APIClient();
+$response = $api->callAPI("/public/products"); // Example GET request
+// print_r($response);
+$p_data_6 = $p_data_9 = $p_data_1 = $response['data'];
 $html = "";
 ?>
 <!-- header area end -->
@@ -204,57 +207,66 @@ $html = "";
 
    <!-- trending area start -->
    <section class="trending__area pt-110 pb-110 grey-bg">
-        <div class="container">
-            <div class="row align-items-end">
-                <div class="col-xxl-6 col-xl-6 col-lg col-md-8">
-                    <div class="section__title-wrapper mb-50">
-                        <h2 class="section__title">Trending <br> Landmark Themes</h2>
-                        <p>Jeffrey pardon me jolly good.</p>
-                    </div>
-                </div>
-                <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
-                    <div class="trending__more d-flex justify-content-md-end  mb-50">
-                        <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
-                    </div>
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-xxl-6 col-xl-6 col-lg col-md-8">
+                <div class="section__title-wrapper mb-50">
+                    <h2 class="section__title">Trending <br> Landmark Themes</h2>
+                    <p>Jeffrey pardon me jolly good.</p>
                 </div>
             </div>
-            <div class="row">
-                <?php
-                  foreach ($p_data_9 as $key => $value) {
-                     $product_title =  mb_substr($value['product_title'], 0, 30) . "..";
-                     $excerpt = mb_substr($value['product_content'], 0, 30) . "..";
-                     $price = (int)$query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'")[0]['min_price'];
-                     if ($price == 0) {
-                        $price = "FREE!";
-                     }
-                     $html = "<div class=\"col-xxl-4 col-xl-4 col-lg-6 col-md-6\">
-                     <div class=\"trending__item d-sm-flex white-bg mb-30 wow fadeInUp\" data-wow-delay=\".3s\">
-                        <div class=\"trending__thumb mr-25\">
-                           <div class=\"trending__thumb-inner fix\">
-                              <a href=\"product-details.php?id={$value['product_image']}\">
-                                 <img src=\"{$value['product_image']}\" alt=\"\" class=\"product_img_102\">
-                              </a>
-                           </div>
-                        </div>
-                        <div class=\"trending__content\">
-                           <h3 class=\"trending__title\"><a href=\"product-details.php?id={$value['id']}\">{$product_title}</a></h3>
-                           <p>Click to see full information.</p>
-                           <div class=\"trending__meta d-flex justify-content-between\">
-                              <div class=\"trending__tag\">
-                                 <a href=\"#\">Business</a>
-                              </div>
-                              <div class=\"trending__price\">
-                                 <span>₹{$price}</span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     </div>";
-                     echo $html;
-                  }
-      echo $html = "</div></div></section>";
+            <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
+                <div class="trending__more d-flex justify-content-md-end  mb-50">
+                    <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <?php
+            foreach ($p_data_9 as $key => $value) {
+                // កាត់ចំណងជើង និង excerpt
+                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
+                $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
 
-   ?>
+                // ទាញយកតម្លៃពី database
+               //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
+
+                // ពិនិត្យថា $priceData មានទិន្នន័យឬអត់
+                $price = $value['priceUSD'] ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
+
+                // ប្តូរ 0 ទៅជា "FREE!"
+                $price = ($price == 0) ? "FREE!" : "$" . $price;
+
+                // Generate HTML
+                echo '<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+                    <div class="trending__item d-sm-flex white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="trending__thumb mr-25">
+                            <div class="trending__thumb-inner fix">
+                                <a href="product-details.php?id=' . $value['id'] . '">
+                                    <img src="' . (isset($value['image_url']) ? $value['image_url'] : '') . '" alt="" class="product_img_102">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="trending__content">
+                            <h3 class="trending__title"><a href="product-details.php?id=' . $value['id'] . '">' . $product_title . '</a></h3>
+                            <p>Click to see full information.</p>
+                            <div class="trending__meta d-flex justify-content-between">
+                                <div class="trending__tag">
+                                    <a href="#">Business</a>
+                                </div>
+                                <div class="trending__price">
+                                    <span>' . $price . '</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+               }
+               ?>
+         </div>
+      </div>
+   </section>
+
 
 
    <!-- subscribe area start -->
@@ -363,7 +375,7 @@ $html = "";
    <!-- product area end -->
 
    <!-- product area start -->
-   <section class="product__area pt-105 pb-110 grey-bg-2">
+   <section class="product__area d-none pt-105 pb-110 grey-bg-2">
       <div class="container">
          <div class="row">
                <div class="col-xxl-12">
