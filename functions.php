@@ -112,6 +112,55 @@ class query extends database
         $q->execute();
         //  return $q;
     }
+
+    function getProducts($limit = "")
+    {
+        // URL API
+        $url = 'http://178.128.123.241/api/public/products';
+
+        // Initialize cURL
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json"
+        ]);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+
+        // Execute cURL request
+        $response = curl_exec($curl);
+
+        // Check for cURL errors
+        if (curl_errno($curl)) {
+            $error = curl_error($curl);
+            curl_close($curl);
+            return ['error' => $error]; // Return JSON-friendly array
+        }
+
+        // Decode JSON response
+        $responseData = json_decode($response, true);
+
+        // Close cURL session
+        curl_close($curl);
+
+        // Check if JSON decoding was successful
+        if (!is_array($responseData)) {
+            return ['error' => 'Invalid JSON response'];
+        }
+
+        // Log response
+        MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($responseData, JSON_UNESCAPED_UNICODE));
+
+        // Validate response structure
+        if (isset($responseData['status_code']) && $responseData['status_code'] == 200) {
+            return isset($responseData['data']) ? $responseData['data'] : [];
+        }
+
+        return [];
+    }
+
 }
 
 class shopAction extends query
@@ -232,7 +281,7 @@ class auth extends query
             return false;
         }
     }
-    function loginUser($email, $password)
+    function loginUserV1($email, $password)
     {
         $q = $this->connect()->prepare("SELECT `ID`,`user_email`,`user_pass` FROM users WHERE user_email='$email'");
         $q->execute();
@@ -253,6 +302,61 @@ class auth extends query
                 $msg = "Wrong email or password";
             }
         }
+        return $msg;
+    }
+    function loginUser($email, $password)
+    {
+       
+        $data = [
+            "email" => $email,
+            "password" => $password
+        ];
+        $jsonData = json_encode($data);
+        // MyLog('សារប្រតិបត្តិការ: '.json_encode($jsonData));
+
+        $url = 'http://178.128.123.241/api/login';
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($jsonData)
+        ]);
+        // Disable SSL verification (for development only)
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+
+        // Execute the request
+        $response = curl_exec($curl);
+
+        // Check for errors
+        if (curl_errno($curl)) {
+            $responseData = Response::json(['error' => curl_error($curl)], 400);
+        //    return Response::json(['error' => curl_error($curl)], 401);
+            // echo 'cURL Error: ' . curl_error($curl);
+            $msg = $responseData;
+        } else {
+            // Decode JSON response
+            $responseData = json_decode($response, true);
+            print_r($responseData);
+            $res = (object)$responseData;
+            MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
+            if($res->status_code == 200){
+                $_SESSION['user_login'] = true;
+                $ex_user = $_SESSION['user_id'];
+                $_SESSION['user_id'] = $res->data->user->id;
+                $user_id = $_SESSION['user_id'];
+                $msg = "login successful";
+            }else
+                $msg = $res->error_message ?? 'Wrong email or password';
+            // print_r($responseData);
+        }
+
+        // Close cURL session
+        curl_close($curl);
+
         return $msg;
     }
     function encPass($password)

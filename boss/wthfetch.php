@@ -18,7 +18,6 @@ class database
         if (!$con) {
             die('database connection error');
         } else {
-
             return $con;
         }
     }

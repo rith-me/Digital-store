@@ -126,7 +126,7 @@ $cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-4 col-6">
                         <div class="logo">
                             <a href="index.php">
-                                <img class="logo" src="assets/img/logo/logo.png" alt="logo">
+                                <img class="logo" src="assets/img/logo/Online-store.png" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -134,12 +134,12 @@ $cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="has-dropdown active">
+                                    <li class="has-dropdown- active">
                                         <a href="index.php">Home</a>
-                                        <ul class="submenu">
+                                        <!-- <ul class="submenu">
                                             <li><a href="index.php">Home Wordpress</a></li>
                                             <li><a href="index-2.php">Home Plugins</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <li class="has-dropdown">
                                         <a href="product.php">Themes</a>
@@ -149,7 +149,7 @@ $cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
                                         </ul>
                                     </li>
                                     <li><a href="product.php">HTML</a></li>
-                                    <li><a href="support.php">Support</a></li>
+                                    <!-- <li><a href="support.php">Support</a></li> -->
                                     <li class="has-dropdown">
                                         <a href="product.php">pages</a>
 
