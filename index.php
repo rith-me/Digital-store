@@ -7,8 +7,8 @@
 // print_r($p_data_1);
 $api = new APIClient();
 $response = $api->callAPI("/public/products"); // Example GET request
-// print_r($response);
-$p_data_6 = $p_data_9 = $p_data_1 = $response['data'];
+$p_data_6 = $p_data_9 = $p_data_1 = $response['data']['data'];
+// print_r($p_data_9);
 $html = "";
 ?>
 <!-- header area end -->
@@ -232,7 +232,7 @@ $html = "";
                //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
 
                 // ពិនិត្យថា $priceData មានទិន្នន័យឬអត់
-                $price = $value['priceUSD'] ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
+                $price = $value['priceUSD']??0 ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
 
                 // ប្តូរ 0 ទៅជា "FREE!"
                 $price = ($price == 0) ? "FREE!" : "$" . $price;
@@ -334,7 +334,7 @@ $html = "";
                         <div class="product__thumb">
                            <div class="product__thumb-inner fix w-img">
                               <a href="product-details.php?id=' . $value['id'] . '">
-                                    <img src="' . (isset($value['image_url']) ? $value['image_url'] : '') . '" alt="">
+                                    <img class="product_img_356" src="' . (isset($value['image_url']) ? $value['image_url'] : '') . '" alt="">
                               </a>
                            </div>
                         </div>

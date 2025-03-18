@@ -55,6 +55,12 @@ img.product_img_102 {
   object-fit: cover;
 }
 
+img.product_img_356 {
+  max-width: 356px;
+  height: 306px;
+  object-fit: cover;
+}
+
 body {
   font-family: "Be Vietnam", sans-serif;
   font-size: 14px;

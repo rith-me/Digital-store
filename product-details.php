@@ -1,5 +1,5 @@
 <?php require('inc/header.php');
-// $api = new APIClient();
+$api = new APIClient();
 
 $query = new query();
 $shopAction = new shopAction();
@@ -7,17 +7,21 @@ if (!isset($_GET['id'])) {
    header("location: index.php");
 } else {
    $p_id = $_GET['id'];
-   $p_data = $query->fetchData("products", "*", "id='$p_id' and product_status='publish'");
-   // $response = $api->callAPI("/public/products/$p_id");
-   if (count($p_data) == 0) {
+   // $p_data = $query->fetchData("products", "*", "id='$p_id' and product_status='publish'");
+   // if (count($p_data) == 0) {
+   //    header("location: index.php");
+   // }
+   $response = $api->callAPI("/public/products/$p_id");
+   if($response['status_code'] != 200){
       header("location: index.php");
-   }
+   }else
+   $p_data = $response['data']??[];
 }
-$price = (int)$query->fetchData("product_meta", "min_price", "product_id='$p_id'")[0]['min_price'];
-$date = date("F j, Y", strtotime($p_data[0]['publish_date']));
-$update_date = date("F j, Y", strtotime($p_data[0]['product_modified']));
-$image = $p_data[0]['product_image'];
-$title = $p_data[0]['product_title'];
+$price = $p_data['priceUSD']??0;//(int)$query->fetchData("product_meta", "min_price", "product_id='$p_id'")[0]['min_price'];
+$date = date("F j, Y", strtotime(isset($p_data['publish_date']) ? $p_data['publish_date'] : $p_data['created_at'] ?? null));
+$update_date = date("F j, Y", strtotime(isset($p_data['product_modified']) ? $p_data['product_modified'] : $p_data['updated_at'] ?? null));
+$image = $p_data['image_url'];
+$title = $p_data['product_name'];
 $buy_now_btn_text = "Add to Cart";
 $buy_now_btn_link = "?id=$p_id&add_to_cart=$p_id&msg=msg";
 $version = "Latest";
@@ -75,7 +79,7 @@ if ($price == 0) {
             <div class="col-xxl-8 col-xl-8 col-lg-8">
                <div class="product__wrapper">
                   <div class="product__details-thumb w-img mb-30">
-                     <img src="<?php echo $image; ?>" alt="product-details">
+                     <img src="<?php if($image) echo $image; else echo 'assets/img/banner/sidebar-banner.jpg'?>" alt="product-details">
                   </div>
                   <div class="product__details-content">
                      <div class="product__tab mb-40">
@@ -93,7 +97,7 @@ if ($price == 0) {
                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                               <div class="product__overview">
                                  <h3 class="product__overview-title">Template Details</h3>
-                                 <?php echo $p_data[0]['product_content']; ?>
+                                 <?php echo $p_data['product_detail']; ?>
                                  <div class="product__social m-social grey-bg-2">
                                     <h4 class="product__social-title">Follow us</h4>
                                     <ul>
@@ -186,7 +190,7 @@ if ($price == 0) {
                               </div>
                            </div>
                            <div class="product__proprietor-price">
-                              <span class="d-flex align-items-start"><span>₹</span><?php echo $price; ?></span>
+                              <span class="d-flex align-items-start"><?php echo '$'.$price; ?></span>
                            </div>
                         </div>
                         <div class="product__proprietor-text">
