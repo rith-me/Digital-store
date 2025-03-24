@@ -7,7 +7,7 @@
 // print_r($p_data_1);
 $api = new APIClient();
 $response = $api->callAPI("/public/products"); // Example GET request
-$p_data_6 = $p_data_9 = $p_data_1 = $response['data']['data'];
+$p_data_6 = $p_data_9 = $p_data_1 = $response['data']['data']??null;
 // print_r($p_data_9);
 $html = "";
 ?>
@@ -223,6 +223,7 @@ $html = "";
         </div>
         <div class="row">
             <?php
+            if($p_data_9)
             foreach ($p_data_9 as $key => $value) {
                 // កាត់ចំណងជើង និង excerpt
                 $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
@@ -313,8 +314,8 @@ $html = "";
          </div>
          <div class="row">
          <?php
-
-            foreach ($p_data_1 as $key => $value) {
+            if($p_data_6)
+            foreach ($p_data_6 as $key => $value) {
                // កាត់ចំណងជើង និង excerpt
                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
                $excerpt = isset($value['category']) ? mb_substr($value['category'], 0, 30) . ".." : "";
@@ -387,7 +388,7 @@ $html = "";
          </div>
          <div class="row">
          <?php
-
+               if($p_data_6)
                foreach ($p_data_6 as $key => $value) {
                   $product_title =  mb_substr($value['product_title'], 0, 30) . "..";
                   $excerpt = mb_substr($value['product_content'], 0, 30) . "..";
