@@ -1,4 +1,19 @@
-<?php require('inc/header.php'); ?>
+<?php require('inc/header.php'); 
+$api = new APIClient();
+
+if (!isset($_GET['id'])) {
+   header("location: index.php");
+} else {
+   $p_id = $_GET['id'];
+   $response = $api->callAPI("/public/categories/$p_id/products");
+   if($response['status_code'] != 200){
+      header("location: index.php");
+   }else
+   $p_data = $response['data']??[];
+   // print_r($p_data);
+
+}
+?>
 <!-- header area end -->
 
 <!-- cart mini area start -->
@@ -40,7 +55,7 @@
                      </a>
                   </div>
                   <div class="cartmini__content">
-                     <h5><a href="product-details.html">TechBuzz - Businesses Agency</a></h5>
+                     <h5><a href="product-details.html">TechBuzz - License Keyes Agency</a></h5>
                      <div class="product-quantity mt-10 mb-10">
                         <span class="cart-minus">-</span>
                         <input class="cart-input" type="text" value="1" />
@@ -295,9 +310,49 @@
                   </div>
                </div>
             </div>
+
             <div class="col-xxl-8 col-xl-8 col-lg-8">
                <div class="row">
-                  <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+               <?php
+                  if($p_data)
+                  foreach ($p_data as $key => $value) {
+                     $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
+                     $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+                    
+                     $price = $value['priceUSD']??0 ;
+     
+                     // ប្តូរ 0 ទៅជា "FREE!"
+                     $price = ($price == 0) ? "FREE!" : "$" . $price;
+
+                     // Generate HTML
+                     echo '<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                        <div class="product__item white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
+                           <div class="product__thumb">
+                              <div class="product__thumb-inner fix w-img">
+                                 <a href="product-details.html">
+                                    <img class="product_img_356" src="' . (isset($value['image']) ? $value['image'] : '') . '" alt="">
+                                 </a>
+                              </div>
+                           </div>
+                           <div class="product__content">
+                              <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
+                                 <div class="product__tag">
+                                    <a href="#">License Key</a>
+                                 </div>
+                                 <div class="product__price">
+                                    <span>' . $price . '</span>
+                                 </div>
+                              </div>
+                              <h3 class="product__title">
+                                 <a href="product-details.php?id=' . $value['product_id'] . '">' . $product_title . '</a>
+                              </h3>
+                              <p class="product__author">by <a href="#">Theme Pure</a> in <a href="#">Templates</a></p>
+                           </div>
+                        </div>
+                     </div>';
+                  }
+                  else
+                  echo `<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
                      <div class="product__item white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
                         <div class="product__thumb">
                            <div class="product__thumb-inner fix w-img">
@@ -309,14 +364,14 @@
                         <div class="product__content">
                            <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                               <div class="product__tag">
-                                 <a href="#">Business</a>
+                                 <a href="#">License Key</a>
                               </div>
                               <div class="product__price">
                                  <span>$49</span>
                               </div>
                            </div>
                            <h3 class="product__title">
-                              <a href="product-details.html">Zibber - Business Consulting...</a>
+                              <a href="product-details.html">Zibber - License Key Consulting...</a>
                            </h3>
                            <p class="product__author">by <a href="#">Theme Pure</a> in <a href="#">Templates</a></p>
                         </div>
@@ -409,7 +464,7 @@
                         <div class="product__content">
                            <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                               <div class="product__tag">
-                                 <a href="#">Business</a>
+                                 <a href="#">License Key</a>
                               </div>
                               <div class="product__price">
                                  <span>$49</span>
@@ -496,7 +551,9 @@
                            <p class="product__author">by <a href="#">Theme Pure</a> in <a href="#">Templates</a></p>
                         </div>
                      </div>
-                  </div>
+                  </div>`;
+               ?>
+                  
                </div>
                <div class="row">
                   <div class="col-xxl-12">
@@ -575,7 +632,7 @@
                   </div>
                   <div class="trending__content">
                      <div class="trending__tag trending__tag-2">
-                        <a href="#">Business</a>
+                        <a href="#">License Key</a>
                      </div>
                      <h3 class="trending__title trending__title-2"><a href="product-details.html">Zibber WP Theme</a></h3>
                      <div class="trending__author">

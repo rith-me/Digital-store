@@ -347,10 +347,67 @@ class auth extends query
                 $_SESSION['user_login'] = true;
                 $ex_user = $_SESSION['user_id'];
                 $_SESSION['user_id'] = $res->data->user->id;
+                $_SESSION['token'] = $res->data->token;
                 $user_id = $_SESSION['user_id'];
                 $msg = "login successful";
             }else
                 $msg = $res->error_message ?? 'Wrong email or password';
+            // print_r($responseData);
+        }
+
+        // Close cURL session
+        curl_close($curl);
+
+        return $msg;
+    }
+    function registerUser($data)
+    {
+       
+        // $data = [
+        //     "email" => $email,
+        //     "password" => $password
+        // ];
+        $jsonData = json_encode($data);
+        // MyLog('សារប្រតិបត្តិការ: '.json_encode($jsonData));
+
+        $url = 'http://178.128.123.241/api/register';
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+            "Content-Length: " . strlen($jsonData)
+        ]);
+        // Disable SSL verification (for development only)
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+
+        // Execute the request
+        $response = curl_exec($curl);
+
+        // Check for errors
+        if (curl_errno($curl)) {
+            $responseData = Response::json(['error' => curl_error($curl)], 400);
+        //    return Response::json(['error' => curl_error($curl)], 401);
+            // echo 'cURL Error: ' . curl_error($curl);
+            $msg = $responseData;
+        } else {
+            // Decode JSON response
+            $responseData = json_decode($response, true);
+            print_r($responseData);
+            $res = (object)$responseData;
+            MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
+            if($res->status_code == 200){
+                $_SESSION['user_login'] = true;
+                $ex_user = $_SESSION['user_id'];
+                $_SESSION['user_id'] = $res->data->user->id;
+                $_SESSION['token'] = $res->data->token;
+                $created_user_id = $_SESSION['user_id'];
+                $msg = "registe successful";
+            }else
+                $msg = $res->error_message ?? 'registe faild';
             // print_r($responseData);
         }
 

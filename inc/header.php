@@ -15,8 +15,14 @@ if (!$auth->isLogin()) {
 $user_id = $_SESSION['user_id'];
 $user_type = $_SESSION['user_type'];
 
+$api = new APIClient();
 $query = new query();
 $shopAction = new shopAction();
+
+$response = $api->callAPI("/public/categories"); // Example GET request
+$catagories = $response['data']??null;
+// print_r($catagories);
+$get_id = $_GET['id'] ?? null;
 
 if (isset($_GET['action']) && $_GET['action'] == "checkout") {
     $shopAction->checkout();
@@ -29,14 +35,18 @@ if (isset($_GET['download'])) {
 
 if (isset($_GET['add_to_cart'])) {
     $pid = $_GET['add_to_cart'];
-    $cpd = $query->fetchData("product_meta", "*", "product_id='$pid'");
+    
+    // $cpd = $query->fetchData("product_meta", "*", "product_id='$pid'");
+    $response = $api->callAPI("/public/products/$pid");
+    $cpd = $response['data']??[];
 
     if (count($cpd) != 0) {
         $caap = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
 
         if (count($caap) == 0) {
-            $data = ["user_id" => $user_id, "product_id" => $pid, "price" => $cpd[0]['min_price'], "user_type" => $user_type];
-            $q = $query->insertData("cart", $data);
+            $data = ["user_id" => $user_id, "product_id" => $pid, "price" => $cpd['priceUSD'], "user_type" => $user_type];
+            // $q = $query->insertData("cart", $data);
+            MyLog('សារប្រតិបត្តិការ 1 '.json_encode($data));
 
             $msg = "Product added to your cart successfully";
             $msg_class = "alert-success";
@@ -134,33 +144,45 @@ $cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li class="has-dropdown- active">
+                                    <li class="has-dropdown- <?php echo ($get_id==null ? 'active' : '') ?>">
                                         <a href="index.php">Home</a>
                                         <!-- <ul class="submenu">
                                             <li><a href="index.php">Home Wordpress</a></li>
                                             <li><a href="index-2.php">Home Plugins</a></li>
                                         </ul> -->
                                     </li>
-                                    <li class="has-dropdown">
-                                        <a href="product.php">Themes</a>
-                                        <ul class="submenu">
-                                            <li><a href="product.php">Product</a></li>
-                                            <li><a href="product-details.php">Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="product.php">HTML</a></li>
-                                    <!-- <li><a href="support.php">Support</a></li> -->
-                                    <li class="has-dropdown">
-                                        <a href="product.php">pages</a>
+                                    <?php
+                                    if($catagories)
+                                    foreach ($catagories as $key => $value) {
+                                        // កាត់ចំណងជើង និង excerpt
+                                        $catagory_id = $value['id']??null;
+                                        $name = $value['name'] ?? 'catagory_name';
+                                        // Generate HTML
+                                        echo '<li class="'.($get_id==$catagory_id ? 'active' : '').'"><a href="product.php?id=' . $value['id'] . '">'.$name.'</a></li>';
+                                    }
+                                    else
+                                    echo `<li class="has-dropdown">
+                                            <a href="product.php">Themes</a>
+                                            <ul class="submenu">
+                                                <li><a href="product.php">Product</a></li>
+                                                <li><a href="product-details.php">Product Details</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="product.php">HTML</a></li>
+                                        <!-- <li><a href="support.php">Support</a></li> -->
+                                        <li class="has-dropdown">
+                                            <a href="product.php">pages</a>
 
-                                        <ul class="submenu">
-                                            <li><a href="about.php">About</a></li>
-                                            <li><a href="documentation.php">Documentation</a></li>
-                                            <li><a href="pricing.php">Pricing</a></li>
-                                            <li><a href="sign-up.php">Sign Up</a></li>
-                                            <li><a href="sign-in.php">Log In</a></li>
-                                        </ul>
-                                    </li>
+                                            <ul class="submenu">
+                                                <li><a href="about.php">About</a></li>
+                                                <li><a href="documentation.php">Documentation</a></li>
+                                                <li><a href="pricing.php">Pricing</a></li>
+                                                <li><a href="sign-up.php">Sign Up</a></li>
+                                                <li><a href="sign-in.php">Log In</a></li>
+                                            </ul>
+                                        </li>`;
+                                    ?>
+                                    
                                     <li class="has-dropdown">
                                         <a href="blog.php">Blog</a>
 

@@ -4,9 +4,36 @@ $query = new query();
 <!-- header area end -->
 
 <!-- cart mini area start -->
-<?php require('inc/cart.php'); ?>
+<?php require('inc/cart.php'); 
+if (isset($_POST['register'])) {
+   $email = $_POST['email'];
+   $username = explode("@", $email)[0];
+   // $user_count = count($query->fetchData("users", "user_email", "user_email='$email'"));
+   // if ($user_count > 0) {
+   //    echo "user already exists with same email";
+   // } else {
+      // $key = rndmString(6, "", "1234567890");
+      $pass = $_POST['password'];
+      // $pass = $auth->encPass($pass);
+      $data = ["password" => $pass, "password_confirmation" => $pass, "email" => $email, "name" => $username];
+      // $created_user_id = $query->insertData("users", $data);
+      // $ex_user = $_SESSION['user_id'];
+      // $_SESSION['user_id'] = $created_user_id;
+      // $user_id = $_SESSION['user_id'];
+      // $_SESSION['user_login'] = true;
+      // $cart_update = $query->updateData("cart", "user_id='$user_id'", "user_id='$ex_user'");
+      $status_msg = $auth->registerUser($data);
+
+   // }
+}
+if ($auth->isLogin()) {
+   header("location: index.php");
+   die();
+}
+?>
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
+
 
 
 <!-- sidebar area start -->
@@ -76,8 +103,15 @@ $query = new query();
                <div class="sign__wrapper white-bg">
                   <div class="sign__header mb-35">
                      <div class="sign__in text-center">
-                        <a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a>
-                        <p> <span>........</span> Or, <a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>
+                        
+                        <?php $sign_up_msg = `<a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a>
+                                                <p> <span>........</span> Or, <a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>`;
+                        if (isset($_POST['login'])) {
+                           echo "<p style=\"color:red\"> <span>........</span> {$status_msg}<span> ........</span> </p>";
+                        } else {
+                           echo $sign_up_msg;
+                        }
+                        ?>
                      </div>
                   </div>
                   <div class="sign__form">
@@ -129,26 +163,9 @@ $query = new query();
                            <p>Already in GPLdog ? <a href=\"sign-in.php\"> Sign In</a></p>
                         </div>
                      </form>";
-                     if (isset($_POST['register'])) {
-                        $email = $_POST['email'];
-                        $user_count = count($query->fetchData("users", "user_email", "user_email='$email'"));
-                        if ($user_count > 0) {
-                           echo "user already exists with same email";
-                        } else {
-                           $key = rndmString(6, "", "1234567890");
-                           $pass = $_POST['password'];
-                           $pass = $auth->encPass($pass);
-                           $data = ["user_pass" => $pass, "user_email" => $email, "user_activation_key" => $key];
-                           $created_user_id = $query->insertData("users", $data);
-                           $ex_user = $_SESSION['user_id'];
-                           $_SESSION['user_id'] = $created_user_id;
-                           $user_id = $_SESSION['user_id'];
-                           $_SESSION['user_login'] = true;
-                           $cart_update = $query->updateData("cart", "user_id='$user_id'", "user_id='$ex_user'");
-                        }
-                     }
+
                      
-                     if (isset($_GET['auth']) == "verify" && $user_count > 0) {
+                     if (isset($_GET['auth']) == "verify") {
                         $form = "<form method=\"POST\" >
                            <div class=\"sign__input-wrapper mb-25\">
                               <h5>OTP Verification</h5>
@@ -165,15 +182,22 @@ $query = new query();
                         if (isset($_GET['id'])) {
                            $created_user_id = $_GET['id'];
                         } else if (isset($_POST['register'])) {
-                           $created_user_id = $created_user_id;
+                           $created_user_id = $created_user_id??null;
                         } else if (isset($_POST['verify'])) {
-                           $user_id = $_SESSION['user_id'];
-                           $key = $_POST['otp'];
-                           $q = $query->fetchData("users", "user_activation_key", "ID='$user_id'");
+                           $user_token = isset($_SESSION['user_id'])?$_SESSION['user_id'] : null;
 
-                           if ($q[0]['user_activation_key'] == $key) {
-                              $q = $query->updateData("users", "user_status=1,user_activation_key=''", "ID='$user_id'");
-                           } else {
+                           // $key = $_POST['otp'];
+                           // $q = $query->fetchData("users", "user_activation_key", "ID='$user_id'");
+
+                           // if ($q[0]['user_activation_key'] == $key) {
+                           //    $q = $query->updateData("users", "user_status=1,user_activation_key=''", "ID='$user_id'");
+                           // } else {
+                           //    echo "Wrong OTP";
+                           // }
+                           if($user_token){
+                              header("location: sign-in.php");
+                              die();
+                           }else {
                               echo "Wrong OTP";
                            }
                         }
