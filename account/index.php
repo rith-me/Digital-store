@@ -34,7 +34,8 @@
                             <h3>Dashboard</h3>
                             <div class="welcome">
                                 <?php
-                                echo "<p>Hello, <strong>{$auth->logedInuser()['nick_name']}</strong> (If Not <strong>{$auth->logedInuser()['nick_name']} !</strong><a href=\"?action=logout\" class=\"logout\"> Logout</a>)</p>";
+                                // print_r($auth->logedInuser());
+                                echo "<p>Hello, <strong>{$auth->logedInuser()['user']['name']}</strong> (If Not <strong>{$auth->logedInuser()['user']['name']} !</strong><a href=\"?action=logout\" class=\"logout\"> Logout</a>)</p>";
                                 ?>
                             </div>
 
@@ -59,20 +60,20 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($shopAction->orderData() as $key => $value) {
-                                            $date = strtotime($value['order_date']);
-                                            $date = date("M d, Y", $date);
+                                        // foreach ($shopAction->orderData() as $key => $value) {
+                                        //     $date = strtotime($value['order_date']);
+                                        //     $date = date("M d, Y", $date);
 
-                                            $order_table = "  <tr>
-                                            <td>{$value['ID']}</td>
-                                            <td>{$date}</td>
-                                            <td>{$value['order_status']}</td>
-                                            <td>₹{$value['order_total']}</td>
-                                            <td><a href=\"cart.php\" class=\"check-btn sqr-btn \">View</a></td>
-                                        </tr>";
-                                            echo $order_table;
-                                        }
-                                        ?>
+                                        //     $order_table = "  <tr>
+                                        //     <td>{$value['ID']}</td>
+                                        //     <td>{$date}</td>
+                                        //     <td>{$value['order_status']}</td>
+                                        //     <td>₹{$value['order_total']}</td>
+                                        //     <td><a href=\"cart.php\" class=\"check-btn sqr-btn \">View</a></td>
+                                        // </tr>";
+                                        //     echo $order_table;
+                                        // }
+                                        // ?>
 
                                     </tbody>
                                 </table>
@@ -97,20 +98,20 @@
                                     <tbody>
                                         <?php
 
-                                        foreach ($downloads = $shopAction->availableDownloads() as $key => $value) {
+                                        // foreach ($downloads = $shopAction->availableDownloads() as $key => $value) {
 
-                                            $id = $value;
-                                            $url = "?download=$id";
-                                            $product_title = $shopAction->productTitleById($id);
-                                            $downloads = " <tr>
-                                                <td>{$product_title}</td>
-                                                <td>Never</td>
+                                        //     $id = $value;
+                                        //     $url = "?download=$id";
+                                        //     $product_title = $shopAction->productTitleById($id);
+                                        //     $downloads = " <tr>
+                                        //         <td>{$product_title}</td>
+                                        //         <td>Never</td>
 
-                                                <td><a href=\"$url\" class=\"check-btn sqr-btn \"><i class=\"fa fa-cloud-download\"></i> Download File</a></td>
-                                            </tr>";
-                                            echo $downloads;
-                                        }
-                                        ?>
+                                        //         <td><a href=\"$url\" class=\"check-btn sqr-btn \"><i class=\"fa fa-cloud-download\"></i> Download File</a></td>
+                                        //     </tr>";
+                                        //     echo $downloads;
+                                        // }
+                                        // ?>
 
 
                                     </tbody>

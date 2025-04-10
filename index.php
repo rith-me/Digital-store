@@ -72,11 +72,10 @@ $html = "";
                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-8">
                   <div class="hero__content">
                      <h2 class="hero__title">
-                           <span>The world’s largest</span>
-                           WordPress Themes
-                           Collection.
+                           <span>The world’s snazziest</span>
+                           software stash—click.
                      </h2>
-                     <p>The bee's knees pardon you plastered it's all gone to pot cheeky bugger wind up down.</p>
+                     <p>install, conquer.</p>
                      <div class="hero__search">
                            <form action="#">
                               <div class="hero__search-inner d-xl-flex">
@@ -118,12 +117,13 @@ $html = "";
                <div class="col-xxl-12">
                   <div class="section__title-wrapper text-center mb-60">
                      <h2 class="section__title">Browse <br> Popular Categories</h2>
-                     <p>Find over 7000 website templates and themes.</p>
+                     <p>Find over 70 software acount and license key.</p>
                   </div>
                </div>
          </div>
+        
          <div class="row">
-               <div class="col-xxl-3 col-xl-3 col-md-6 col-sm-6">
+               <div class="col-xxl-4 col-xl-4 col-md-6 col-sm-6">
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".3s">
                      <div class="category__icon mb-25">
@@ -131,16 +131,16 @@ $html = "";
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php">WordPress Themes</a>
+                              <a href="product.php"><?php if($catagories) echo $catagories[0]['name'] ?></a>
                            </h3>
-                           <a href="product.php" class="link-btn">
+                           <a href="product.php ?id=<?php if($catagories) echo $catagories[0]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
                               Learn More
                            </a>
                      </div>
                   </div>
                </div>
-               <div class="col-xxl-3 col-xl-3 col-md-6 col-sm-6">
+               <div class="col-xxl-4 col-xl-4 col-md-6 col-sm-6">
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".5s">
                      <div class="category__icon mb-25">
@@ -148,16 +148,16 @@ $html = "";
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php">Site Templates</a>
+                              <a href="product.php"><?php if($catagories) echo $catagories[1]['name'] ?></a>
                            </h3>
-                           <a href="product.php" class="link-btn">
+                           <a href="product.php?id=<?php if($catagories) echo $catagories[1]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
                               Learn More
                            </a>
                      </div>
                   </div>
                </div>
-               <div class="col-xxl-3 col-xl-3 col-md-6 col-sm-6">
+               <div class="col-xxl-4 col-xl-4 col-md-6 col-sm-6">
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".7s">
                      <div class="category__icon mb-25">
@@ -165,16 +165,16 @@ $html = "";
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php">UI Templates</a>
+                              <a href="product.php"><?php if($catagories) echo $catagories[2]['name'] ?></a>
                            </h3>
-                           <a href="product.php" class="link-btn">
+                           <a href="product.php?id=<?php if($catagories) echo $catagories[2]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
                               Learn More
                            </a>
                      </div>
                   </div>
                </div>
-               <div class="col-xxl-3 col-xl-3 col-md-6 col-sm-6">
+               <div class="d-none col-xxl-3 col-xl-3 col-md-6 col-sm-6">
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".9s">
                      <div class="category__icon mb-25">
@@ -211,8 +211,8 @@ $html = "";
         <div class="row align-items-end">
             <div class="col-xxl-6 col-xl-6 col-lg col-md-8">
                 <div class="section__title-wrapper mb-50">
-                    <h2 class="section__title">Trending <br> Landmark Themes</h2>
-                    <p>Jeffrey pardon me jolly good.</p>
+                    <h2 class="section__title">Trending <br> Landmark Software</h2>
+                    <!-- <p>Jeffrey pardon me jolly good.</p> -->
                 </div>
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
@@ -275,8 +275,8 @@ $html = "";
       data-background="assets/img/bg/subscribe-bg.jpg">
       <div class="subscribe__icon">
          <img class="ps" src="assets/img/icon/subscribe/ps.png" alt="">
-         <img class="wp" src="assets/img/icon/subscribe/wp.png" alt="">
-         <img class="html" src="assets/img/icon/subscribe/html.png" alt="">
+         <img class="wp" src="assets/img/icon/register/pr.png" alt="">
+         <img class="html" src="assets/img/icon/register/AI.png" alt="">
          <img class="f" src="assets/img/icon/subscribe/f.png" alt="">
          <img class="man" src="assets/img/icon/subscribe/man.png" alt="">
       </div>
@@ -284,15 +284,15 @@ $html = "";
          <div class="row">
                <div class="col-xxl-12">
                   <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".5s">
-                     <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
-                     <p>Try our any product for FREE!</p>
+                     <h3 class="subscribe__title">Want to be a seler? <br> Create your acount now.</h3>
+                     <p>Try our website for FREE!</p>
                      <div class="subscribe__form wow fadeInUp" data-wow-delay=".7s">
                            <form action="#">
-                              <input type="email" placeholder="Email Address">
-                              <button type="submit" class="m-btn m-btn-black"><span></span> subscribe
+                              <!-- <input type="email" placeholder="Email Address"> -->
+                              <button type="submit" class="m-btn m-btn-black"><span></span> register
                               </button>
                            </form>
-                           <p>Join 20,000+ other creators in our Markit community.</p>
+                           <p>Join 20+ other selers in our Markit community.</p>
                      </div>
                   </div>
                </div>
@@ -439,7 +439,7 @@ $html = "";
    <!-- product area end -->
 
    <!-- cta area start -->
-   <section class="cta__area pt-100 pb-60">
+   <section class="cta__area pt-100 pb-60 d-none">
       <div class="container">
          <div class="row">
                <div class="col-xxl-6 offset-xxl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
@@ -468,7 +468,7 @@ $html = "";
    <!-- cta area end -->
 
    <!-- brand area start -->
-   <div class="brand__area pb-15">
+   <div class="brand__area pb-15 d-none">
       <div class="container">
          <div class="row">
                <div class="col-xxl-12">
@@ -496,7 +496,7 @@ $html = "";
    <!-- brand area end -->
 
    <!-- testimonial area start -->
-   <div class="testimonial__area pt-50 pb-115 fix">
+   <div class="testimonial__area pt-50 pb-115 fix d-none">
       <div class="container">
          <div class="testimonial__inner p-relative pb-110">
                <div class="testimonial__bg p-absolute">
@@ -658,7 +658,7 @@ $html = "";
    <!-- testimonial area end -->
 
    <!-- banner area start -->
-   <section class="banner__area pb-90">
+   <section class="banner__area pb-90 d-none">
       <div class="container">
          <div class="row">
                <div class="col-xxl-6 col-xl-6 col-md-6">
