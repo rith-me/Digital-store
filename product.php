@@ -11,7 +11,8 @@ if (!isset($_GET['id'])) {
    }else
    $p_data = $response['data']??[];
    // print_r($p_data);
-
+   $response = $api->callAPI("/public/products"); // Example GET request
+   $p_data_9 = $response['data']['data']??null;
 }
 ?>
 <!-- header area end -->
@@ -153,7 +154,7 @@ if (!isset($_GET['id'])) {
    <section class="product__area po-rel-z1 pt-100 pb-115 grey-bg">
       <div class="container">
          <div class="row">
-            <div class="col-xxl-4 col-xl-4 col-lg-4 order-lg-first order-last">
+            <div class="d-none col-xxl-4 col-xl-4 col-lg-4 order-lg-first order-last">
                <div class="product__sidebar mr-30">
                   <div class="product__sidebar-widget  white-bg mb-30">
                      <div class="sidebar__widget mb-20">
@@ -311,7 +312,7 @@ if (!isset($_GET['id'])) {
                </div>
             </div>
 
-            <div class="col-xxl-8 col-xl-8 col-lg-8">
+            <div class="col-xxl-12 col-xl-12 col-lg-12">
                <div class="row">
                <?php
                   if($p_data)
@@ -325,7 +326,7 @@ if (!isset($_GET['id'])) {
                      $price = ($price == 0) ? "FREE!" : "$" . $price;
 
                      // Generate HTML
-                     echo '<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
+                     echo '<div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4">
                         <div class="product__item white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
                            <div class="product__thumb">
                               <div class="product__thumb-inner fix w-img">
@@ -605,149 +606,71 @@ if (!isset($_GET['id'])) {
    <!-- product area end -->
 
    <!-- trending area start -->
-   <section class="trending__area pt-110 pb-110">
-      <div class="container">
-         <div class="row align-items-end">
+   <section class="trending__area pt-110 pb-110 grey-bg">
+    <div class="container">
+        <div class="row align-items-end">
             <div class="col-xxl-6 col-xl-6 col-lg col-md-8">
-               <div class="section__title-wrapper mb-50">
-                  <h2 class="section__title">Trending <br> Landmark Themes</h2>
-                  <p>Jeffrey pardon me jolly good.</p>
-               </div>
+                <div class="section__title-wrapper mb-50">
+                    <h2 class="section__title">Trending <br> Landmark Software</h2>
+                    <!-- <p>Jeffrey pardon me jolly good.</p> -->
+                </div>
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
-               <div class="trending__more d-flex justify-content-md-end  mb-50">
-                  <a href="product.html" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
-               </div>
+                <div class="trending__more d-flex justify-content-md-end  mb-50">
+                    <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
+                </div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-1.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">License Key</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">Zibber WP Theme</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-2.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">Technology</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">React App Landing</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-3.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">Marketing</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">Digital Marketing</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-4.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">Software</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">Ad Manager Admin</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-5.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">UI Kit</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">UI Template</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
-               <div class="trending__item trending__item-2 d-sm-flex align-items-center transition-3 mb-30 wow fadeInUp" data-wow-delay=".3s">
-                  <div class="trending__thumb mr-25">
-                     <div class="trending__thumb-inner fix">
-                        <a href="product-details.html">
-                           <img src="assets/img/trending/tren-6.jpg" alt="">
-                        </a>
-                     </div>
-                  </div>
-                  <div class="trending__content">
-                     <div class="trending__tag trending__tag-2">
-                        <a href="#">Mail</a>
-                     </div>
-                     <h3 class="trending__title trending__title-2"><a href="product-details.html">Email Template</a></h3>
-                     <div class="trending__author">
-                        <p>by <a href="#">Themepure</a></p>
-                     </div>
-                  </div>
-               </div>
-            </div>
+        </div>
+        <div class="row">
+            <?php
+            if(isset($p_data_9))
+            foreach ($p_data_9 as $key => $value) {
+                // កាត់ចំណងជើង និង excerpt
+                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
+                $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+
+                // ទាញយកតម្លៃពី database
+               //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
+
+                // ពិនិត្យថា $priceData មានទិន្នន័យឬអត់
+                $price = $value['priceUSD']??0 ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
+
+                // ប្តូរ 0 ទៅជា "FREE!"
+                $price = ($price == 0) ? "FREE!" : "$" . $price;
+
+                // Generate HTML
+                echo '<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+                    <div class="trending__item d-sm-flex white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="trending__thumb mr-25">
+                            <div class="trending__thumb-inner fix">
+                                <a href="product-details.php?id=' . $value['id'] . '">
+                                    <img src="' . (isset($value['image_url']) ? $value['image_url'] : '') . '" alt="" class="product_img_102">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="trending__content">
+                            <h3 class="trending__title"><a href="product-details.php?id=' . $value['id'] . '">' . $product_title . '</a></h3>
+                            <p>Click to see full information.</p>
+                            <div class="trending__meta d-flex justify-content-between">
+                                <div class="trending__tag">
+                                    <a href="#">Business</a>
+                                </div>
+                                <div class="trending__price">
+                                    <span>' . $price . '</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+               }
+               ?>
          </div>
       </div>
    </section>
    <!-- trending area end -->
 
    <!-- banner area start -->
-   <section class="banner__area pb-90">
+   <section class="banner__area pb-90 d-none">
       <div class="container">
          <div class="row">
             <div class="col-xxl-6 col-xl-6 col-md-6">
@@ -770,29 +693,31 @@ if (!isset($_GET['id'])) {
    <!-- banner area end -->
 
    <!-- subscribe area start -->
-   <section class="subscribe__area p-relative pt-100 pb-110" data-background="assets/img/bg/subscribe-bg.jpg">
+   <section class="subscribe__area p-relative pt-100 pb-110"
+      data-background="assets/img/bg/subscribe-bg.jpg">
       <div class="subscribe__icon">
          <img class="ps" src="assets/img/icon/subscribe/ps.png" alt="">
-         <img class="wp" src="assets/img/icon/subscribe/wp.png" alt="">
-         <img class="html" src="assets/img/icon/subscribe/html.png" alt="">
+         <img class="wp" src="assets/img/icon/register/pr.png" alt="">
+         <img class="html" src="assets/img/icon/register/AI.png" alt="">
          <img class="f" src="assets/img/icon/subscribe/f.png" alt="">
          <img class="man" src="assets/img/icon/subscribe/man.png" alt="">
       </div>
       <div class="container">
          <div class="row">
-            <div class="col-xxl-12">
-               <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".3s">
-                  <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
-                  <p>Try our any product for FREE!</p>
-                  <div class="subscribe__form wow fadeInUp" data-wow-delay=".5s">
-                     <form action="#">
-                        <input type="email" placeholder="Email Address">
-                        <button type="submit" class="m-btn m-btn-black"><span></span> subscribe </button>
-                     </form>
-                     <p>Join 20,000+ other creators in our Markit community.</p>
+               <div class="col-xxl-12">
+                  <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".5s">
+                     <h3 class="subscribe__title">Want to be a seler? <br> Create your acount now.</h3>
+                     <p>Try our website for FREE!</p>
+                     <div class="subscribe__form wow fadeInUp" data-wow-delay=".7s">
+                           <form action="#">
+                              <!-- <input type="email" placeholder="Email Address"> -->
+                              <button type="submit" class="m-btn m-btn-black"><span></span> register
+                              </button>
+                           </form>
+                           <p>Join 20+ other selers in our Markit community.</p>
+                     </div>
                   </div>
                </div>
-            </div>
          </div>
       </div>
    </section>

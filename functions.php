@@ -340,14 +340,15 @@ class auth extends query
         } else {
             // Decode JSON response
             $responseData = json_decode($response, true);
-            print_r($responseData);
             $res = (object)$responseData;
             MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
             if($res->status_code == 200){
                 $_SESSION['user_login'] = true;
+                // print_r($res->data['user']);
+
                 $ex_user = $_SESSION['user_id'];
-                $_SESSION['user_id'] = $res->data->user->id;
-                $_SESSION['token'] = $res->data->token;
+                $_SESSION['user_id'] = $res->data['user']['id']??0;
+                $_SESSION['token'] = $res->data['token']??'null';
                 $user_id = $_SESSION['user_id'];
                 $msg = "login successful";
             }else
@@ -399,11 +400,11 @@ class auth extends query
             print_r($responseData);
             $res = (object)$responseData;
             MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
-            if($res->status_code == 200){
+            if($res->status == 'ok'){
                 $_SESSION['user_login'] = true;
                 $ex_user = $_SESSION['user_id'];
-                $_SESSION['user_id'] = $res->data->user->id;
-                $_SESSION['token'] = $res->data->token;
+                $_SESSION['user_id'] = $res->data['user']['id']??0;
+                $_SESSION['token'] = $res->data['token']??'null';
                 $created_user_id = $_SESSION['user_id'];
                 $msg = "registe successful";
             }else
@@ -433,9 +434,58 @@ class auth extends query
     function logedInuser()
     {
         if ($this->isLogin()) {
-            $user_id = $_SESSION['user_id'];
-            $user_data = $this->fetchData("users", "*", "ID='$user_id'");
-            return $user_data[0];
+
+            $token = $_SESSION['token'];
+            // $user_data = $this->fetchData("users", "*", "ID='$user_id'");
+            // return $user_data[0];
+            
+            // URL API
+            $url = 'http://178.128.123.241/api/profile';
+
+            // Initialize cURL
+            $curl = curl_init($url);
+
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                "Content-Type: application/json",
+                "Authorization: Bearer {$token}"
+            ]);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+
+            // Execute cURL request
+            $response = curl_exec($curl);
+
+            // Check for cURL errors
+            if (curl_errno($curl)) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                print_r($error);
+
+                return ['error' => $error]; // Return JSON-friendly array
+            }
+
+            // Decode JSON response
+            $responseData = json_decode($response, true);
+
+            // Close cURL session
+            curl_close($curl);
+
+            // Check if JSON decoding was successful
+            if (!is_array($responseData)) {
+                return ['error' => 'Invalid JSON response'];
+            }
+
+            // Validate response structure
+            if (isset($responseData['status_code']) && $responseData['status_code'] == 200) {
+                // print_r($responseData);
+
+                return isset($responseData['data']) ? $responseData['data'] : [];
+            }
+
+            return [];
+
         }
     }
     function resetLink($email)

@@ -1,28 +1,38 @@
 <?php require('inc/header.php');
-$query = new query();
-?>
-<!-- header area end -->
+// $query = new query();
 
-<!-- cart mini area start -->
-<?php require('inc/cart.php'); 
 if (isset($_POST['register'])) {
-   $email = $_POST['email'];
-   $username = explode("@", $email)[0];
+   // $email = $_POST['email'];
    // $user_count = count($query->fetchData("users", "user_email", "user_email='$email'"));
    // if ($user_count > 0) {
    //    echo "user already exists with same email";
    // } else {
       // $key = rndmString(6, "", "1234567890");
-      $pass = $_POST['password'];
+      // $pass = $_POST['password'];
       // $pass = $auth->encPass($pass);
-      $data = ["password" => $pass, "password_confirmation" => $pass, "email" => $email, "name" => $username];
+      $status_msg = "Register Successfully";
+      $username = $_POST['name'];
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+      $re_password = $_POST['re_password'];
+
+      if (empty($email)) {
+         $status_msg = "Email is required";
+      } else if (empty($password)) {
+         $status_msg = "Password is required";
+      } else if ($password != $re_password) {
+         $status_msg = "Password validation failed";
+      } else {
+         // $status_msg = $auth->loginUser($email, $password);
+         $data = ["password" => $password, "password_confirmation" => $re_password, "email" => $email, "name" => $username];
       // $created_user_id = $query->insertData("users", $data);
       // $ex_user = $_SESSION['user_id'];
       // $_SESSION['user_id'] = $created_user_id;
       // $user_id = $_SESSION['user_id'];
       // $_SESSION['user_login'] = true;
       // $cart_update = $query->updateData("cart", "user_id='$user_id'", "user_id='$ex_user'");
-      $status_msg = $auth->registerUser($data);
+         $status_msg = $auth->registerUser($data);
+      }
 
    // }
 }
@@ -31,6 +41,13 @@ if ($auth->isLogin()) {
    die();
 }
 ?>
+<!-- header area end -->
+
+<!-- cart mini area start -->
+<?php require('inc/cart.php'); 
+
+?>
+
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
 
@@ -104,25 +121,26 @@ if ($auth->isLogin()) {
                   <div class="sign__header mb-35">
                      <div class="sign__in text-center">
                         
-                        <?php $sign_up_msg = `<a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a>
-                                                <p> <span>........</span> Or, <a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>`;
-                        if (isset($_POST['login'])) {
-                           echo "<p style=\"color:red\"> <span>........</span> {$status_msg}<span> ........</span> </p>";
-                        } else {
+                        <?php 
+                           $sign_up_msg = '<a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a>
+                                                   <p> <span>........</span> Or, <a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>';
+                           if (isset($_POST['register'])) {
+                              echo "<p style=\"color:red\"> <span>........</span> {$status_msg}<span> ........</span> </p>";
+                           }else
                            echo $sign_up_msg;
-                        }
                         ?>
+
                      </div>
                   </div>
                   <div class="sign__form">
-                     <?php $form = " <form method=\"POST\" action=\"?auth=verify\">
-                        <!-- <div class=\"sign__input-wrapper mb-25\">
+                     <?php $form = " <form method=\"POST\" >
+                        <div class=\"sign__input-wrapper mb-25\">
                            <h5>Full Name</h5>
                            <div class=\"sign__input\">
-                              <input type=\"text\" placeholder=\"Full name\">
+                              <input name=\"name\" type=\"text\" placeholder=\"Full name\">
                               <i class=\"fal fa-user\"></i>
                            </div>
-                        </div> -->
+                        </div>
                         <!-- <div class=\"sign__input-wrapper mb-10\">
                            <h5>Re-Password</h5>
                            <div class=\"sign__input\">
@@ -144,13 +162,13 @@ if ($auth->isLogin()) {
                               <i class=\"fal fa-lock\"></i>
                            </div>
                         </div>
-                        <!-- <div class=\"sign__input-wrapper mb-10\">
+                        <div class=\"sign__input-wrapper mb-10\">
                            <h5>Re-Password</h5>
                            <div class=\"sign__input\">
-                              <input type=\"text\" placeholder=\"Re-Password\">
+                              <input name=\"re_password\" type=\"text\" placeholder=\"Re-Password\">
                               <i class=\"fal fa-lock\"></i>
                            </div>
-                        </div> -->
+                        </div> 
                         <div class=\"sign__action d-flex justify-content-between mb-30\">
                            <div class=\"sign__agree d-flex align-items-center\">
                               <input class=\"m-check-input\" name=\"term\" type=\"checkbox\" id=\"m-agree\">
