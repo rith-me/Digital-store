@@ -6,8 +6,10 @@
 // $p_data_1 = $query->getProducts();
 // print_r($p_data_1);
 $api = new APIClient();
-$response = $api->callAPI("/public/products"); // Example GET request
-$p_data_6 = $p_data_9 = $p_data_1 = $response['data']['data']??null;
+$response = $api->callAPI("/public/products?per_page=6"); // Example GET request
+$p_data_6 = $response['data']['data']??null;
+$response = $api->callAPI("/public/products?per_page=9");
+$p_data_9 = $response['data']['data']??null;
 // print_r($p_data_9);
 $html = "";
 ?>
@@ -32,7 +34,7 @@ $html = "";
         <div class="sidebar__content">
             <div class="logo mb-40">
                 <a href="index.php">
-                    <img class="logo" src="assets/img/logo/logo-white.png" alt="logo">
+                    <img class="logo" src="assets/img/logo/Online-store-white.png" alt="logo">
                 </a>
             </div>
             <div class="mobile-menu"></div>
@@ -43,7 +45,7 @@ $html = "";
                 <div class="sidebar__cart mt-20">
                     <a href="javascript:void(0);" class="cart-toggle-btn">
                         <i class="far fa-shopping-cart"></i>
-                        <span>2</span>
+                        <span>0</span>
                     </a>
                 </div>
             </div>
@@ -307,7 +309,7 @@ $html = "";
          <div class="row">
                <div class="col-xxl-12">
                   <div class="section__title-wrapper text-center mb-60">
-                     <h2 class="section__title">Latest <br> Premium Products</h2>
+                     <h2 class="section__title">Latest <br>  Products</h2>
                      <p>From multipurpose themes to niche templates</p>
                   </div>
                </div>
@@ -367,7 +369,7 @@ $html = "";
          <div class="row">
                <div class="col-xxl-12">
                   <div class="product__more text-center mt-30">
-                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore Premium</a>
+                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore </a>
                   </div>
                </div>
          </div>
@@ -381,7 +383,7 @@ $html = "";
          <div class="row">
                <div class="col-xxl-12">
                   <div class="section__title-wrapper text-center mb-60">
-                     <h2 class="section__title">Latest <br> Premium Products</h2>
+                     <h2 class="section__title">Latest <br>  Products</h2>
                      <p>From multipurpose themes to niche templates</p>
                   </div>
                </div>
@@ -430,7 +432,7 @@ $html = "";
          <div class="row">
                <div class="col-xxl-12">
                   <div class="product__more text-center mt-30">
-                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore Premium</a>
+                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore </a>
                   </div>
                </div>
          </div>

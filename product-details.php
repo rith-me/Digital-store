@@ -87,7 +87,7 @@ if ($price == 0) {
                            <li class="nav-item" role="presentation">
                               <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
                            </li>
-                           <li class="nav-item" role="presentation">
+                           <li class="nav-item d-none" role="presentation">
                               <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">Support</button>
                            </li>
                         </ul>
@@ -182,7 +182,7 @@ if ($price == 0) {
                         <div class="product__prorietor-info mb-20 d-flex justify-content-between">
                            <div class="product__proprietor-avater d-flex align-items-center">
                               <div class="product__proprietor-thumb">
-                                 <img src="assets/img/product/proprietor/proprietor-1.jpg" alt="">
+                                 <img src="assets/img/product/proprietor/profile.png" alt="">
                               </div>
                               <div class="product__proprietor-name">
                                  <h5><a href="#">Justin Case</a></h5>
@@ -199,16 +199,16 @@ if ($price == 0) {
                      </div>
                      <div class="product__proprietor-body fix">
                         <ul class="mb-10 fix">
-                           <li>
+                           <li class="d-none">
                               <h6>Downloads:</h6>
                               <span>44</span>
                            </li>
 
-                           <li>
+                           <li class="d-none">
                               <h6>Version:</h6>
                               <span><?php echo $version; ?></span>
                            </li>
-                           <li>
+                           <li class="d-none">
                               <h6>Released On:</h6>
                               <span><?php echo $date; ?></span>
                            </li>
@@ -216,7 +216,7 @@ if ($price == 0) {
                               <h6>Last Update:</h6>
                               <span><?php echo $update_date; ?></span>
                            </li>
-                           <li>
+                           <li class="d-none">
                               <h6>Framework:</h6>
                               <span>Redux:</span>
                            </li>
@@ -225,7 +225,7 @@ if ($price == 0) {
                         <a href="pricing.php" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a>
                      </div>
                   </div>
-                  <div class="sidebar__banner" data-background="assets/img/banner/sidebar-banner.jpg">
+                  <div class="sidebar__banner d-none" data-background="assets/img/banner/sidebar-banner.jpg">
                      <h4 class="sidebar__banner-title">Check Out <br>Our free Templates</h4>
                      <a href="product.php" class="m-btn m-btn-white"> <span></span> free template</a>
                   </div>

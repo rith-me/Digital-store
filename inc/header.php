@@ -41,7 +41,10 @@ if (isset($_GET['add_to_cart'])) {
     $cpd = $response['data']??[];
 
     if (count($cpd) != 0) {
-        $caap = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
+        // $caap = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
+        $cartResponse = $api->callAPI("/api/cart/view");
+        $caap = $cartResponse['data']??[];
+        MyLog('សារប្រតិបត្តិការ 2 '.json_encode($caap));
 
         if (count($caap) == 0) {
             $data = ["user_id" => $user_id, "product_id" => $pid, "price" => $cpd['priceUSD'], "user_type" => $user_type];
