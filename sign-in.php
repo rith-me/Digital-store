@@ -92,8 +92,8 @@ if ($auth->isLogin()) {
                <div class="sign__wrapper white-bg">
                   <div class="sign__header mb-35">
                      <div class="sign__in text-center">
-                        <a href="#" class="sign__social text-start mb-15"><i class="fab fa-facebook-f"></i>Sign in with Facebook</a>
-                        <?php $sign_in_msg = "<p> <span>........</span> Or, <a href=\"sign-in.php\">sign in</a> with your email<span> ........</span> </p>";
+                        <!-- <a href="#" class="sign__social text-start mb-15"><i class="fab fa-facebook-f"></i>Sign in with Facebook</a> -->
+                        <?php $sign_in_msg = "<p> <span>........</span> <a href=\"sign-in.php\">sign in</a> with your email<span> ........</span> </p>";
                         if (isset($_POST['login'])) {
                            echo "<p style=\"color:red\"> <span>........</span> {$status_msg}<span> ........</span> </p>";
                         } else {

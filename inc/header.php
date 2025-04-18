@@ -25,7 +25,12 @@ $catagories = $response['data']??null;
 $get_id = $_GET['id'] ?? null;
 
 if (isset($_GET['action']) && $_GET['action'] == "checkout") {
-    $shopAction->checkout();
+    // $shopAction->checkout();
+    $order_hash = rndmString(13, "gd_order_");
+    header("location: razorpay/pay.php?order=$order_hash");
+    // $msg = "checkout are not avalable, we are fixing.";
+    // $msg_class = "alert-danger";
+    // $st_msg = "Sorry";
 }
 
 if (isset($_GET['download'])) {
@@ -47,13 +52,24 @@ if (isset($_GET['add_to_cart'])) {
         MyLog('សារប្រតិបត្តិការ 2 '.json_encode($caap));
 
         if (count($caap) == 0) {
-            $data = ["user_id" => $user_id, "product_id" => $pid, "price" => $cpd['priceUSD'], "user_type" => $user_type];
+            // $data = ["product_id" => $pid, "user_id" => $user_id,  "price" => $cpd['priceUSD'], "user_type" => $user_type];
             // $q = $query->insertData("cart", $data);
-            MyLog('សារប្រតិបត្តិការ 1 '.json_encode($data));
-
-            $msg = "Product added to your cart successfully";
-            $msg_class = "alert-success";
-            $st_msg = "Congratulations";
+            // MyLog('សារប្រតិបត្តិការ 1 '.json_encode($data));
+            $token = $_SESSION['token']??null;
+            $data = ["product_id" => $pid, "quantity"=>1];
+            
+            $response = $api->callAPI("/cart/add",'POST',$data,$token); // Example GET request
+            MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
+            if($response && ($response['status_code'] === 200)){
+                $msg = "Product added to your cart successfully";
+                $msg_class = "alert-success";
+                $st_msg = "Congratulations";
+            }else{
+                $msg = "Product add to your cart feiled";
+                $msg_class = "alert-danger";
+                $st_msg = "Sorry";
+            }
+            
         } else {
             $msg = "This product is already available in your Cart";
             $msg_class = "alert-danger";
@@ -78,7 +94,12 @@ if (isset($_GET['remove_cart'])) {
     }
 }
 
-$cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
+$token = $_SESSION['token']??null;
+$cartResponse = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
+$cart_data = $cartResponse['data'] ??[];
+$cart_count = count($cart_data);
+
+// $cart_count = count($query->fetchData("cart", "*", "user_id='$user_id'"));
 ?>
 <!doctype html>
 <html class="no-js" lang="zxx">

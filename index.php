@@ -12,7 +12,7 @@ $response = $api->callAPI("/public/products?per_page=9");
 $p_data_9 = $response['data']['data']??null;
 // print_r($p_data_9);
 $html = "";
-?>
+?> 
 <!-- header area end -->
 
 
@@ -45,7 +45,7 @@ $html = "";
                 <div class="sidebar__cart mt-20">
                     <a href="javascript:void(0);" class="cart-toggle-btn">
                         <i class="far fa-shopping-cart"></i>
-                        <span>0</span>
+                        <span><?php echo $cart_count; ?></span>
                     </a>
                 </div>
             </div>
@@ -414,7 +414,7 @@ $html = "";
                            <a href=\"#\">Business</a>
                         </div>
                         <div class=\"product__price\">
-                           <span>₹{$price}</span>
+                           <span>" . (is_numeric($price) ? "$" . $price : $price) . "</span>
                         </div>
                      </div>
                      <h3 class=\"product__title\">

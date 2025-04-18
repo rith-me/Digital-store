@@ -68,7 +68,7 @@
                                         //     <td>{$value['ID']}</td>
                                         //     <td>{$date}</td>
                                         //     <td>{$value['order_status']}</td>
-                                        //     <td>₹{$value['order_total']}</td>
+                                        //     <td>${$value['order_total']}</td>
                                         //     <td><a href=\"cart.php\" class=\"check-btn sqr-btn \">View</a></td>
                                         // </tr>";
                                         //     echo $order_table;

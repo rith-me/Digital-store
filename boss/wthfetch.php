@@ -35,18 +35,18 @@ class APIClient
         $this->api_url = "http://178.128.123.241/api"; // Replace with your actual API URL
     }
 
-    public function callAPI($endpoint, $method = "GET", $data = [])
+    public function callAPI($endpoint, $method = "GET", $data = [],$token = null)
     {
         $url = $this->api_url . $endpoint;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [ $token ? "Authorization: Bearer " . trim($token) : null,'Content-Type: application/json']);
 
         if ($method === "POST") {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         }
 
         $response = curl_exec($ch);
