@@ -34,6 +34,9 @@ if ($price == 0) {
    $buy_now_btn_text = "Download Now";
    $buy_now_btn_link = "?id=$p_id&download=$p_id";
 }
+if(!isset($_SESSION['token'])){
+   $buy_now_btn_link = "sign-in.php";
+}
 ?>
 <!-- header area end -->
 
@@ -87,7 +90,7 @@ if ($price == 0) {
                            <li class="nav-item" role="presentation">
                               <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
                            </li>
-                           <li class="nav-item" role="presentation">
+                           <li class="nav-item d-none" role="presentation">
                               <button class="nav-link" id="support-tab" data-bs-toggle="tab" data-bs-target="#support" type="button" role="tab" aria-controls="support" aria-selected="false">Support</button>
                            </li>
                         </ul>
@@ -120,7 +123,7 @@ if ($price == 0) {
                                                    <img src="assets/img/product/support/sup-1.jpg" alt="">
                                                 </div>
                                                 <div class="avatar-name">
-                                                   <h5>Jason Response</h5>
+                                                   <h5><?php echo $p_data['seller']??'Jason Response'; ?></h5>
                                                    <span class="post-meta">Author</span>
                                                 </div>
                                              </div>
@@ -182,10 +185,10 @@ if ($price == 0) {
                         <div class="product__prorietor-info mb-20 d-flex justify-content-between">
                            <div class="product__proprietor-avater d-flex align-items-center">
                               <div class="product__proprietor-thumb">
-                                 <img src="assets/img/product/proprietor/proprietor-1.jpg" alt="">
+                                 <img src="assets/img/product/proprietor/profile.png" alt="">
                               </div>
                               <div class="product__proprietor-name">
-                                 <h5><a href="#">Justin Case</a></h5>
+                                 <h5><a href="#"><?php echo $p_data['seller']??'Justin Case'; ?></a></h5>
                                  <a href="#">View Profile</a>
                               </div>
                            </div>
@@ -199,16 +202,16 @@ if ($price == 0) {
                      </div>
                      <div class="product__proprietor-body fix">
                         <ul class="mb-10 fix">
-                           <li>
+                           <li class="d-none">
                               <h6>Downloads:</h6>
                               <span>44</span>
                            </li>
 
-                           <li>
+                           <li class="d-none">
                               <h6>Version:</h6>
                               <span><?php echo $version; ?></span>
                            </li>
-                           <li>
+                           <li class="d-none">
                               <h6>Released On:</h6>
                               <span><?php echo $date; ?></span>
                            </li>
@@ -216,16 +219,16 @@ if ($price == 0) {
                               <h6>Last Update:</h6>
                               <span><?php echo $update_date; ?></span>
                            </li>
-                           <li>
+                           <li class="d-none">
                               <h6>Framework:</h6>
                               <span>Redux:</span>
                            </li>
                         </ul>
                         <a href="<?php echo $buy_now_btn_link; ?>" class="m-btn m-btn-2 w-100 mb-20"> <span></span> <?php echo $buy_now_btn_text; ?></a>
-                        <a href="pricing.php" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a>
+                        <!-- <a href="pricing.php" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a> -->
                      </div>
                   </div>
-                  <div class="sidebar__banner" data-background="assets/img/banner/sidebar-banner.jpg">
+                  <div class="sidebar__banner d-none" data-background="assets/img/banner/sidebar-banner.jpg">
                      <h4 class="sidebar__banner-title">Check Out <br>Our free Templates</h4>
                      <a href="product.php" class="m-btn m-btn-white"> <span></span> free template</a>
                   </div>
@@ -238,29 +241,31 @@ if ($price == 0) {
 
 
    <!-- subscribe area start -->
-   <section class="subscribe__area p-relative pt-100 pb-110" data-background="assets/img/bg/subscribe-bg.jpg">
+   <section class="subscribe__area p-relative pt-100 pb-110"
+      data-background="assets/img/bg/subscribe-bg.jpg">
       <div class="subscribe__icon">
          <img class="ps" src="assets/img/icon/subscribe/ps.png" alt="">
-         <img class="wp" src="assets/img/icon/subscribe/wp.png" alt="">
-         <img class="html" src="assets/img/icon/subscribe/html.png" alt="">
+         <img class="wp" src="assets/img/icon/register/pr.png" alt="">
+         <img class="html" src="assets/img/icon/register/AI.png" alt="">
          <img class="f" src="assets/img/icon/subscribe/f.png" alt="">
          <img class="man" src="assets/img/icon/subscribe/man.png" alt="">
       </div>
       <div class="container">
          <div class="row">
-            <div class="col-xxl-12">
-               <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".3s">
-                  <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
-                  <p>Try our any product for FREE!</p>
-                  <div class="subscribe__form wow fadeInUp" data-wow-delay=".5s">
-                     <form action="#">
-                        <input type="email" placeholder="Email Address">
-                        <button type="submit" class="m-btn m-btn-black"><span></span> subscribe </button>
-                     </form>
-                     <p>Join 20,000+ other creators in our Markit community.</p>
+               <div class="col-xxl-12">
+                  <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".5s">
+                     <h3 class="subscribe__title">Want to be a seler? <br> Create your acount now.</h3>
+                     <p>Try our website for FREE!</p>
+                     <div class="subscribe__form wow fadeInUp" data-wow-delay=".7s">
+                           <form action="#">
+                              <!-- <input type="email" placeholder="Email Address"> -->
+                              <button type="submit" class="m-btn m-btn-black"><span></span> register
+                              </button>
+                           </form>
+                           <p>Join 20+ other selers in our Markit community.</p>
+                     </div>
                   </div>
                </div>
-            </div>
          </div>
       </div>
    </section>

@@ -120,7 +120,7 @@ if (!isset($_GET['id'])) {
       <div class="sidebar__content">
          <div class="logo mb-40">
             <a href="index.html">
-               <img src="assets/img/logo/logo-white.png" alt="logo">
+               <img src="assets/img/logo/Online-store-white.png" alt="logo">
             </a>
          </div>
          <div class="mobile-menu"></div>

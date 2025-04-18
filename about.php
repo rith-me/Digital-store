@@ -104,7 +104,7 @@
       <div class="sidebar__content">
          <div class="logo mb-40">
             <a href="index.html">
-               <img src="assets/img/logo/logo-white.png" alt="logo">
+               <img class="logo" src="assets/img/logo/Online-store-white.png" alt="logo">
             </a>
          </div>
          <div class="mobile-menu"></div>
@@ -115,7 +115,7 @@
             <div class="sidebar__cart mt-20">
                <a href="javascript:void(0);" class="cart-toggle-btn">
                   <i class="far fa-shopping-cart"></i>
-                  <span>2</span>
+                  <span><?php echo $cart_count; ?></span>
                </a>
             </div>
          </div>
@@ -400,29 +400,31 @@
    <!-- community area end -->
 
    <!-- subscribe area start -->
-   <section class="subscribe__area p-relative pt-100 pb-110" data-background="assets/img/bg/subscribe-bg.jpg">
+   <section class="subscribe__area p-relative pt-100 pb-110"
+      data-background="assets/img/bg/subscribe-bg.jpg">
       <div class="subscribe__icon">
          <img class="ps" src="assets/img/icon/subscribe/ps.png" alt="">
-         <img class="wp" src="assets/img/icon/subscribe/wp.png" alt="">
-         <img class="html" src="assets/img/icon/subscribe/html.png" alt="">
+         <img class="wp" src="assets/img/icon/register/pr.png" alt="">
+         <img class="html" src="assets/img/icon/register/AI.png" alt="">
          <img class="f" src="assets/img/icon/subscribe/f.png" alt="">
          <img class="man" src="assets/img/icon/subscribe/man.png" alt="">
       </div>
       <div class="container">
          <div class="row">
-            <div class="col-xxl-12">
-               <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".3s">
-                  <h3 class="subscribe__title">Have a project? <br> Create your website now.</h3>
-                  <p>Try our any product for FREE!</p>
-                  <div class="subscribe__form wow fadeInUp" data-wow-delay=".5s">
-                     <form action="#">
-                        <input type="email" placeholder="Email Address">
-                        <button type="submit" class="m-btn m-btn-black"><span></span> subscribe </button>
-                     </form>
-                     <p>Join 20,000+ other creators in our Markit community.</p>
+               <div class="col-xxl-12">
+                  <div class="subscribe__content text-center wow fadeInUp" data-wow-delay=".5s">
+                     <h3 class="subscribe__title">Want to be a seler? <br> Create your acount now.</h3>
+                     <p>Try our website for FREE!</p>
+                     <div class="subscribe__form wow fadeInUp" data-wow-delay=".7s">
+                           <form action="#">
+                              <!-- <input type="email" placeholder="Email Address"> -->
+                              <button type="submit" class="m-btn m-btn-black"><span></span> register
+                              </button>
+                           </form>
+                           <p>Join 20+ other selers in our Markit community.</p>
+                     </div>
                   </div>
                </div>
-            </div>
          </div>
       </div>
    </section>

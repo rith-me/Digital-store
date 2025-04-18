@@ -65,7 +65,7 @@ if ($auth->isLogin()) {
       <div class="sidebar__content">
          <div class="logo mb-40">
             <a href="index.php">
-               <img src="assets/img/logo/logo-white.png" alt="logo">
+               <img src="assets/img/logo/Online-store-white.png" alt="logo">
             </a>
          </div>
          <div class="mobile-menu"></div>
@@ -120,10 +120,9 @@ if ($auth->isLogin()) {
                <div class="sign__wrapper white-bg">
                   <div class="sign__header mb-35">
                      <div class="sign__in text-center">
-                        
+                     <!-- <a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a> -->
                         <?php 
-                           $sign_up_msg = '<a href="#" class="sign__social g-plus text-start mb-15"><i class="fab fa-google-plus-g"></i>Sign Up with Google</a>
-                                                   <p> <span>........</span> Or, <a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>';
+                           $sign_up_msg = '<p> <span>........</span><a href="sign-up.php">sign up</a> with your email<span> ........</span> </p>';
                            if (isset($_POST['register'])) {
                               echo "<p style=\"color:red\"> <span>........</span> {$status_msg}<span> ........</span> </p>";
                            }else
