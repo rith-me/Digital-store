@@ -397,7 +397,7 @@ class auth extends query
         } else {
             // Decode JSON response
             $responseData = json_decode($response, true);
-            print_r($responseData);
+            // print_r($responseData);
             $res = (object)$responseData;
             MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
             if($res->status == 'ok'){
@@ -461,7 +461,7 @@ class auth extends query
             if (curl_errno($curl)) {
                 $error = curl_error($curl);
                 curl_close($curl);
-                print_r($error);
+                // print_r($error);
 
                 return ['error' => $error]; // Return JSON-friendly array
             }

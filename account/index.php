@@ -1,5 +1,9 @@
 <?php include("header.php");
 // print_r($shopAction->availableDownloads());
+$api = new APIClient();
+$token = $_SESSION['token']??null;
+$response = $api->callAPI("/cart/orders",'GET',[],$token); // Example GET request
+$orderData = $response['data'] ??[];
 ?>
 <!-- mini cart start -->
 
@@ -11,13 +15,13 @@
     </div>
 </div>
 <div class="my-account-area pb-120">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 col-md-4">
                 <div class="myaccount-tab-menu nav" role="tablist">
                     <a href="#dashboad" class="active" data-bs-toggle="tab">Dashboard</a>
                     <a href="#orders" data-bs-toggle="tab">Orders</a>
-                    <a href="#download" data-bs-toggle="tab">Download</a>
+                    <!-- <a href="#download" data-bs-toggle="tab">Download</a> -->
                     <a href="#payment-method" data-bs-toggle="tab">Payment Method</a>
                     <a href="#address-edit" data-bs-toggle="tab">Address</a>
                     <a href="#account-info" data-bs-toggle="tab">Account Details</a>
@@ -39,7 +43,9 @@
                                 ?>
                             </div>
 
-                            <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                            <p class="mb-0">From your account dashboard. you can easily check & view your recent orders,
+                                manage your shipping and billing addresses and edit your password and account details.
+                            </p>
                         </div>
                     </div>
                     <!-- Single Tab Content End -->
@@ -60,20 +66,27 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        // foreach ($shopAction->orderData() as $key => $value) {
-                                        //     $date = strtotime($value['order_date']);
-                                        //     $date = date("M d, Y", $date);
+                                        $i = 1;
 
-                                        //     $order_table = "  <tr>
-                                        //     <td>{$value['ID']}</td>
-                                        //     <td>{$date}</td>
-                                        //     <td>{$value['order_status']}</td>
-                                        //     <td>${$value['order_total']}</td>
-                                        //     <td><a href=\"cart.php\" class=\"check-btn sqr-btn \">View</a></td>
-                                        // </tr>";
-                                        //     echo $order_table;
-                                        // }
-                                        // ?>
+                                        if (!empty($orderData)) {
+                                            foreach ($orderData as $key => $value) {
+                                                $date = !empty($value['ordered_at']) ? date("M d, Y", strtotime($value['ordered_at'])) : 'N/A';
+                                                $status = $value['order_status'] ?? 'Completed';
+                                                $price = number_format($value['price'] ?? 0, 2); // Format to 2 decimal places
+                                                $order = $value['id'] ?? $i;
+                                                echo "<tr>
+                                                        <td>{$order}</td>
+                                                        <td>{$date}</td>
+                                                        <td>{$status}</td>
+                                                        <td>\${$price}</td>
+                                                        <td><a href=\"cart.php\" class=\"check-btn sqr-btn\">View</a></td>
+                                                    </tr>";
+
+                                                $i++;
+                                            }
+                                        }
+                                        ?>
+
 
                                     </tbody>
                                 </table>
@@ -97,7 +110,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-
+                                        // if($downloads)
                                         // foreach ($downloads = $shopAction->availableDownloads() as $key => $value) {
 
                                         //     $id = $value;
@@ -111,7 +124,7 @@
                                         //     </tr>";
                                         //     echo $downloads;
                                         // }
-                                        // ?>
+                                        ?>
 
 
                                     </tbody>

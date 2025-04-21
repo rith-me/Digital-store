@@ -126,7 +126,12 @@ if (!isset($_GET['id'])) {
          <div class="mobile-menu"></div>
          <div class="sidebar__action mt-330">
             <div class="sidebar__login mt-15">
-               <a href="#"><i class="far fa-unlock"></i> Log In</a>
+               <!-- <a href="#"><i class="far fa-unlock"></i> Log In</a> -->
+                    <?php if ($auth->isLogin()) {
+                        echo "<a href=\"account\"><i class=\"far fa-user\"></i>Account</a>";
+                    } else {
+                        echo "<a href=\"sign-in.php\"><i class=\"far fa-unlock\"></i> Log In</a>";
+                    } ?>
             </div>
             <div class="sidebar__cart mt-20">
                <a href="javascript:void(0);" class="cart-toggle-btn">
