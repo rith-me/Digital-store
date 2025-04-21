@@ -35,25 +35,43 @@ class APIClient
         $this->api_url = "http://178.128.123.241/api"; // Replace with your actual API URL
     }
 
-    public function callAPI($endpoint, $method = "GET", $data = [],$token = null)
+    public function callAPI($endpoint, $method = "GET", $data = [], $token = null)
     {
         $url = $this->api_url . $endpoint;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [ $token ? "Authorization: Bearer " . trim($token) : null,'Content-Type: application/json']);
 
+        // Set headers
+        $headers = ['Content-Type: application/json'];
+        if ($token) {
+            $headers[] = "Authorization: Bearer " . trim($token);
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        // Handle methods
         if ($method === "POST") {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        } elseif (in_array($method, ["PUT", "PATCH", "DELETE"])) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+            if (!empty($data)) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
         }
 
         $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            return ['error' => curl_error($ch)];
+        }
+
         curl_close($ch);
 
         return json_decode($response, true);
     }
+
 }
 
 // // Example Usage:
@@ -61,4 +79,3 @@ class APIClient
 // $response = $api->callAPI("/get-data"); // Example GET request
 // print_r($response);
 // ?>
-
