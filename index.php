@@ -833,7 +833,7 @@ $html = "";
 <script src="assets/js/wow.min.js"></script>
 <script src="assets/js/imagesloaded.pkgd.min.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/Khqr.js"></script>
+<!-- <script src="assets/js/Khqr.js"></script> -->
 
 </body>
 
