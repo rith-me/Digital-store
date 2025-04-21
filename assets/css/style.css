@@ -2171,6 +2171,11 @@ p {
 @media (max-width: 575px) {
   .trending__thumb img {
     width: 100%;
+    max-width: unset;
+    height: 100%;
+  }
+  .footer__widget, .footer__bottom-inner{
+    text-align: center;
   }
 }
 .trending__content p {

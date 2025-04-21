@@ -222,9 +222,9 @@ $html = "";
                     <!-- <p>Jeffrey pardon me jolly good.</p> -->
                 </div>
             </div>
-            <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
+            <div class="col-xxl-6 col-xl-6 col-lg col-md-4 d-none">
                 <div class="trending__more d-flex justify-content-md-end  mb-50">
-                    <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
+                    <a href="product.php" class="m-btn m-btn-border"><span></span>View All Product</a>
                 </div>
             </div>
         </div>
@@ -275,8 +275,6 @@ $html = "";
       </div>
    </section>
 
-
-
    <!-- subscribe area start -->
    <section class="subscribe__area p-relative pt-100 pb-110"
       data-background="assets/img/bg/subscribe-bg.jpg">
@@ -315,7 +313,7 @@ $html = "";
                <div class="col-xxl-12">
                   <div class="section__title-wrapper text-center mb-60">
                      <h2 class="section__title">Latest <br>  Products</h2>
-                     <p>From multipurpose themes to niche templates</p>
+                     <p>From Digital Store</p>
                   </div>
                </div>
          </div>

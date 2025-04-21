@@ -1,21 +1,28 @@
-<?php require('../functions.php');
+<?php
+require('../functions.php');
+
 $auth = new auth();
 $file = new files();
 $shopAction = new shopAction();
-if ($auth->isLogin() == false) {
-    // header("location:../login.php");
+
+if (!$auth->isLogin()) {
     header("location:../sign-in.php");
-    die();
+    exit();
 }
-if (isset($_GET['action']) == "logout") {
+
+if (isset($_GET['action']) && $_GET['action'] == "logout") {
     unset($_SESSION['user_login']);
     unset($_SESSION['user_id']);
+    header("Location: ../sign-in.php");
+    exit();
 }
+
 if (isset($_GET['download'])) {
     $p_id = $_GET['download'];
     $file->download($p_id);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +31,8 @@ if (isset($_GET['download'])) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Digital Store </title>
     <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="Mr.Bara Multipurpose eCommerce Bootstrap 5 Template is a stunning e-commerce website template that is the best choice for any online store.">
+    <meta name="description"
+        content="Mr.Bara Multipurpose eCommerce Bootstrap 5 Template is a stunning e-commerce website template that is the best choice for any online store.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <link rel="canonical" href="https://htmldemo.hasthemes.com/mrbara/index.html" />
@@ -37,7 +45,8 @@ if (isset($_GET['download'])) {
     <meta property="og:site_name" content="Mr.Bara - Multipurpose eCommerce HTML Template" />
     <!-- For the og:image content, replace the # with a link of an image -->
     <meta property="og:image" content="#" />
-    <meta property="og:description" content="Mr.Bara Multipurpose eCommerce Bootstrap 5 Template is a stunning e-commerce website template that is the best choice for any online store." />
+    <meta property="og:description"
+        content="Mr.Bara Multipurpose eCommerce Bootstrap 5 Template is a stunning e-commerce website template that is the best choice for any online store." />
     <!-- Add site Favicon -->
     <link rel="icon" href="assets/images/favicon/cropped-favicon-32x32.png" sizes="32x32" />
     <link rel="icon" href="assets/images/favicon/cropped-favicon-192x192.png" sizes="192x192" />
