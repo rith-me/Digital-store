@@ -79,10 +79,10 @@ $html = "";
                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-8">
                   <div class="hero__content">
                      <h2 class="hero__title">
-                           <span>The world’s snazziest</span>
-                           software stash—click.
+                           <span>Unlock a Universe </span>
+                           of Digital Delights
                      </h2>
-                     <p>install, conquer.</p>
+                     <p>—Your Next Favorite Software is Just a Click Away.</p>
                      <div class="hero__search">
                            <form action="#">
                               <div class="hero__search-inner d-xl-flex">
@@ -260,7 +260,7 @@ $html = "";
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">Business</a>
+                                    <a href="#">'.$value['category'].'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>
@@ -347,7 +347,7 @@ $html = "";
                         <div class="product__content">
                            <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                               <div class="product__tag">
-                                    <a href="#">Business</a>
+                                    <a href="#">'.$value['category'].'</a>
                               </div>
                               <div class="product__price">
                                     <span>' . $price . '</span>
@@ -414,7 +414,7 @@ $html = "";
                   <div class=\"product__content\">
                      <div class=\"product__meta mb-10 d-flex justify-content-between align-items-center\">
                         <div class=\"product__tag\">
-                           <a href=\"#\">Business</a>
+                           <a href=\"#\">{$value['category']}</a>
                         </div>
                         <div class=\"product__price\">
                            <span>" . (is_numeric($price) ? "$" . $price : $price) . "</span>
@@ -833,6 +833,8 @@ $html = "";
 <script src="assets/js/wow.min.js"></script>
 <script src="assets/js/imagesloaded.pkgd.min.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/Khqr.js"></script>
+
 </body>
 
 </html>

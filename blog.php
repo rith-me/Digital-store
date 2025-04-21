@@ -87,7 +87,7 @@
          </div>
       </div>
    </div>
-</div>
+</div>   
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
 

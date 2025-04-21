@@ -27,7 +27,7 @@ $get_id = $_GET['id'] ?? null;
 if (isset($_GET['action']) && $_GET['action'] == "checkout") {
     // $shopAction->checkout();
     $order_hash = rndmString(13, "gd_order_");
-    header("location: razorpay/pay.php?order=$order_hash");
+    // header("location: razorpay/pay.php?order=$order_hash");
     // $msg = "checkout are not avalable, we are fixing.";
     // $msg_class = "alert-danger";
     // $st_msg = "Sorry";
@@ -59,8 +59,8 @@ if (isset($_GET['add_to_cart'])) {
             $data = ["product_id" => $pid, "quantity"=>1];
             
             $response = $api->callAPI("/cart/add",'POST',$data,$token); // Example GET request
-            MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
-            if($response && ($response['status_code'] === 200)){
+            // MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
+            if($response && ($response['status_code'] == 200)){
                 $msg = "Product added to your cart successfully";
                 $msg_class = "alert-success";
                 $st_msg = "Congratulations";
@@ -80,17 +80,32 @@ if (isset($_GET['add_to_cart'])) {
 
 if (isset($_GET['remove_cart'])) {
     $pid = $_GET['remove_cart'];
-    $cart_check = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
-
-    if (count($cart_check) == 0) {
+    // $cart_check = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
+    $cartResponse = $api->callAPI("/api/cart/view");
+    $cart_check = $cartResponse['data']??[];
+    if (count($cart_check) != 0) {
         $msg = "That product is not in your cart";
         $msg_class = "alert-danger";
         $st_msg = "Dear";
     } else {
-        $q = $query->dropData("cart", "user_id='$user_id' and product_id='$pid'");
-        $msg = "Product removed from your cart";
-        $msg_class = "alert-danger";
-        $st_msg = "Ok";
+        // $q = $query->dropData("cart", "user_id='$user_id' and product_id='$pid'");
+        $token = $_SESSION['token']??null;
+        $response = $api->callAPI("/cart/remove/$pid", 'DELETE', [], $token); // Example GET request
+        MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
+        MyLog('សារប្រតិបត្តិការ 4 '.json_encode($pid));
+        if($response && ($response['status_code'] === 200)){
+            $msg = "Product removed from your cart";
+            $msg_class = "alert-danger";
+            $st_msg = "Ok";
+            removeURLParams(['id', 'remove_cart']);
+        }else{
+            $msg = "Product removed from your cart feiled";
+            $msg_class = "alert-danger";
+            $st_msg = "Sorry";
+            removeURLParams(['id', 'remove_cart']);
+
+        }
+        
     }
 }
 
@@ -122,6 +137,9 @@ $cart_count = count($cart_data);
     <link rel="stylesheet" href="assets/css/elegantFont.css">
     <link rel="stylesheet" href="assets/css/default.css">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://github.com/davidhuotkeo/bakong-khqr/releases/download/bakong-khqr-1.0.6/khqr-1.0.6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
     <!--[if lte IE 9]>

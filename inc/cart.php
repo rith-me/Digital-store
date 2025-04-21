@@ -63,7 +63,8 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
                 </div>
                 <div class="cartmini__checkout-btn">
                     <!-- <a href="cart.php" class="m-btn m-btn-border mb-10 w-100"> <span></span> view cart</a> -->
-                    <a href="?action=checkout" class="m-btn m-btn-3 w-100"> <span></span> checkout</a>
+                    <!-- <a href="?action=checkout" class="m-btn m-btn-3 w-100" id="checkout"> <span></span> checkout</a> -->
+                    <div class="m-btn m-btn-3 w-100" id="checkout"> <span></span> checkout</div>
                 </div>
             </div>
         </div>
@@ -107,4 +108,21 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="qrCodeModalLabel">Scan QR Code</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <canvas id="qrCodeCanvas"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
