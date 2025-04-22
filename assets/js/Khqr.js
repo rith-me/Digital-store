@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Attach event listeners for the checkout button
         const checkoutButton = document.getElementById("checkout");
         if (checkoutButton) {
+            console.log(1);
             checkoutButton.addEventListener("click", displayQRCode);
         } 
 
