@@ -252,6 +252,7 @@ $orderData = $response['data'] ??[];
 <script src="assets/js/plugins/ajax-mail.js"></script>
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/Khqr.js"></script>
 </body>
 
 </html>

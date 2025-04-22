@@ -138,8 +138,9 @@ $cart_count = count($cart_data);
     <link rel="stylesheet" href="assets/css/default.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- <script src="assets/js/khqr-1.0.6.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> -->
+    <script src="assets/js/Khqr-1.0.16.min.js"></script>
+    <!-- <script src="https://github.com/davidhuotkeo/bakong-khqr/releases/download/bakong-khqr-1.0.6/khqr-1.0.6.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
     <!--[if lte IE 9]>
