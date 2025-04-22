@@ -11,6 +11,12 @@ $p_data_6 = $response['data']['data']??null;
 $response = $api->callAPI("/public/products?per_page=9");
 $p_data_9 = $response['data']['data']??null;
 // print_r($p_data_9);
+
+$token = $_SESSION['token']??null;
+$response = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
+$cart_data = $response['data'] ??[];
+// MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart_data, JSON_UNESCAPED_UNICODE));
+
 $html = "";
 ?> 
 <!-- header area end -->
@@ -134,11 +140,11 @@ $html = "";
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".3s">
                      <div class="category__icon mb-25">
-                           <a href="#"><img src="assets/img/icon/catagory/cat-1.png" alt=""></a>
+                           <a href="product.php?id=<?php if($catagories) echo $catagories[0]['id']?>"><img src="assets/img/icon/catagory/cat-1.png" alt=""></a>
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php"><?php if($catagories) echo $catagories[0]['name'] ?></a>
+                              <a href="product.php?id=<?php if($catagories) echo $catagories[0]['id']?>"><?php if($catagories) echo $catagories[0]['name'] ?></a>
                            </h3>
                            <a href="product.php ?id=<?php if($catagories) echo $catagories[0]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
@@ -151,11 +157,11 @@ $html = "";
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".5s">
                      <div class="category__icon mb-25">
-                           <a href="#"><img src="assets/img/icon/catagory/cat-2.png" alt=""></a>
+                           <a href="product.php?id=<?php if($catagories) echo $catagories[1]['id']?>"><img src="assets/img/icon/catagory/cat-2.png" alt=""></a>
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php"><?php if($catagories) echo $catagories[1]['name'] ?></a>
+                              <a href="product.php?id=<?php if($catagories) echo $catagories[1]['id']?>"><?php if($catagories) echo $catagories[1]['name'] ?></a>
                            </h3>
                            <a href="product.php?id=<?php if($catagories) echo $catagories[1]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
@@ -168,11 +174,11 @@ $html = "";
                   <div class="category__item transition-3 text-center white-bg mb-30 wow fadeInUp"
                      data-wow-delay=".7s">
                      <div class="category__icon mb-25">
-                           <a href="#"><img src="assets/img/icon/catagory/cat-3.png" alt=""></a>
+                           <a href="product.php?id=<?php if($catagories) echo $catagories[2]['id']?>"><img src="assets/img/icon/catagory/cat-3.png" alt=""></a>
                      </div>
                      <div class="category__content">
                            <h3 class="category__title">
-                              <a href="product.php"><?php if($catagories) echo $catagories[2]['name'] ?></a>
+                              <a href="product.php?id=<?php if($catagories) echo $catagories[2]['id']?>"><?php if($catagories) echo $catagories[2]['name'] ?></a>
                            </h3>
                            <a href="product.php?id=<?php if($catagories) echo $catagories[2]['id']?>" class="link-btn">
                               <i class="far fa-long-arrow-right"></i>
@@ -199,7 +205,7 @@ $html = "";
                   </div>
                </div>
          </div>
-         <div class="row">
+         <div class="row d-none">
                <div class="col-xxl-12">
                   <div class="category__more mt-30 text-center">
                      <a href="product.php" class="m-btn m-btn-2"> <span></span> View all categories</a>
