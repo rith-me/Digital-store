@@ -18,92 +18,7 @@ if (!isset($_GET['id'])) {
 <!-- header area end -->
 
 <!-- cart mini area start -->
-<div class="cartmini__area">
-   <div class="cartmini__wrapper">
-      <div class="cartmini__title">
-         <h4>Shopping cart</h4>
-      </div>
-      <div class="cartmini__close">
-         <button type="button" class="cartmini__close-btn"><i class="fal fa-times"></i></button>
-      </div>
-      <div class="cartmini__widget">
-         <div class="cartmini__inner">
-            <ul>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-5.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">Findup - Directory & Listing</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>2 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$24.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-2.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">TechBuzz - License Keyes Agency</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>1 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$17.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-3.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">Zibber - Agency Template</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>5 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$72.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-            </ul>
-         </div>
-         <div class="cartmini__checkout">
-            <div class="cartmini__checkout-title mb-30">
-               <h4>Subtotal:</h4>
-               <span>$113.00</span>
-            </div>
-            <div class="cartmini__checkout-btn">
-               <a href="cart.html" class="m-btn m-btn-border mb-10 w-100"> <span></span> view cart</a>
-               <a href="checkout.html" class="m-btn m-btn-3 w-100"> <span></span> checkout</a>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
+<?php include("inc/cart.php"); ?>
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
 
@@ -335,7 +250,7 @@ if (!isset($_GET['id'])) {
                         <div class="product__item white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
                            <div class="product__thumb">
                               <div class="product__thumb-inner fix w-img">
-                                 <a href="product-details.html">
+                                 <a href="product-details.php?id=' . $value['product_id'] . '">
                                     <img class="product_img_356" src="' . (isset($value['image']) ? $value['image'] : '') . '" alt="">
                                  </a>
                               </div>
@@ -561,7 +476,7 @@ if (!isset($_GET['id'])) {
                ?>
                   
                </div>
-               <div class="row">
+               <div class="row d-none">
                   <div class="col-xxl-12">
                      <div class="basic-pagination wow fadeInUp text-center mt-20" data-wow-delay=".2s">
                         <ul>
@@ -570,13 +485,13 @@ if (!isset($_GET['id'])) {
                                  <i class="arrow_left"></i>
                               </a>
                            </li>
-                           <li>
+                           <li class="active">
                               <a href="#">
                                  <span>1</span>
                               </a>
                            </li>
-                           <li class="active">
-                              <a href="product.html">
+                           <li >
+                              <a href="#">
                                  <span>2</span>
                               </a>
                            </li>
@@ -621,7 +536,7 @@ if (!isset($_GET['id'])) {
                 </div>
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
-                <div class="trending__more d-flex justify-content-md-end  mb-50">
+                <div class="trending__more d-flex justify-content-md-end  mb-50 d-none">
                     <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
                 </div>
             </div>
@@ -658,7 +573,7 @@ if (!isset($_GET['id'])) {
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">Business</a>
+                                    <a href="#">'.$value['category'].'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>

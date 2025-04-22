@@ -2,92 +2,7 @@
 <!-- header area end -->
 
 <!-- cart mini area start -->
-<div class="cartmini__area">
-   <div class="cartmini__wrapper">
-      <div class="cartmini__title">
-         <h4>Shopping cart</h4>
-      </div>
-      <div class="cartmini__close">
-         <button type="button" class="cartmini__close-btn"><i class="fal fa-times"></i></button>
-      </div>
-      <div class="cartmini__widget">
-         <div class="cartmini__inner">
-            <ul>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-5.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">Findup - Directory & Listing</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>2 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$24.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-2.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">TechBuzz - Businesses Agency</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>1 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$17.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-               <li>
-                  <div class="cartmini__thumb">
-                     <a href="product-details.html">
-                        <img src="assets/img/product/sm/cart-3.jpg" alt="">
-                     </a>
-                  </div>
-                  <div class="cartmini__content">
-                     <h5><a href="product-details.html">Zibber - Agency Template</a></h5>
-                     <div class="product-quantity mt-10 mb-10">
-                        <span class="cart-minus">-</span>
-                        <input class="cart-input" type="text" value="1" />
-                        <span class="cart-plus">+</span>
-                     </div>
-                     <div class="product__sm-price-wrapper">
-                        <span>5 <i class="fal fa-times"></i></span>
-                        <span class="product__sm-price">$72.00</span>
-                     </div>
-                  </div>
-                  <a href="#" class="cartmini__del"><i class="fal fa-times"></i></a>
-               </li>
-            </ul>
-         </div>
-         <div class="cartmini__checkout">
-            <div class="cartmini__checkout-title mb-30">
-               <h4>Subtotal:</h4>
-               <span>$113.00</span>
-            </div>
-            <div class="cartmini__checkout-btn">
-               <a href="cart.html" class="m-btn m-btn-border mb-10 w-100"> <span></span> view cart</a>
-               <a href="checkout.html" class="m-btn m-btn-3 w-100"> <span></span> checkout</a>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
+<?php include("inc/cart.php"); ?>
 <div class="body-overlay"></div>
 <!-- cart mini area end -->
 
@@ -224,7 +139,8 @@
             </div>
             <div class="col-xxl-5 col-xl-5">
                <div class="contact__map">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.4800810528923!2d90.36797221544877!3d23.837080434546706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c14a3366b005%3A0x901b07016468944c!2z4Kau4Ka_4Kaw4Kaq4KeB4KawIOCmoeCmvyzgppMs4KaP4KaH4KaaLOCmj-CmuCwg4Kai4Ka-4KaV4Ka-!5e0!3m2!1sbn!2sbd!4v1615723408957!5m2!1sbn!2sbd"></iframe>
+                  <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.4800810528923!2d90.36797221544877!3d23.837080434546706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c14a3366b005%3A0x901b07016468944c!2z4Kau4Ka_4Kaw4Kaq4KeB4KawIOCmoeCmvyzgppMs4KaP4KaH4KaaLOCmj-CmuCwg4Kai4Ka-4KaV4Ka-!5e0!3m2!1sbn!2sbd!4v1615723408957!5m2!1sbn!2sbd"></iframe> -->
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4781197396497!2d104.92751731539378!3d11.56210899210271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095164d0deffb7%3A0xa0cc1982d50be5a1!2sPhnom%20Penh%2C%20Cambodia!5e0!3m2!1sen!2sus!4v1617728495854!5m2!1sen!2sus"></iframe>
                </div>
             </div>
          </div>

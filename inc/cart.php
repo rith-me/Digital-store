@@ -25,20 +25,20 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
                     if($cart_data)
                     foreach ($cart_data as $key => $value) {
                         $product_id = $value['product_id'];
-                        // $p_data = $query->fetchData("products", "*", "id='$product_id'");
+                        // $c_data = $query->fetchData("products", "*", "id='$product_id'");
                         // $response = $api->callAPI("public/products/$product_id"); // Example GET request
-                        // $p_data = $response['data']['data'] ??[];
-                        $p_data = $value['product'];
+                        // $c_data = $response['data']['data'] ??[];
+                        $c_data = $value['product'];
                         $cart_total = ($cart_total) + ($value['total_price']);
-                        $price = $p_data['priceUSD'];
+                        $price = $c_data['priceUSD'];
                         echo $html = " <li>
                         <div class=\"cartmini__thumb\">
                             <a href=\"product-details.php\">
-                                <img src=\"{$p_data['image']}\" alt=\"\">
+                                <img src=\"{$c_data['image']}\" alt=\"\">
                             </a>
                         </div>
                         <div class=\"cartmini__content\">
-                            <h5><a href=\"product-details.php?id={$product_id}\">{$p_data['product_name']}</a></h5>
+                            <h5><a href=\"product-details.php?id={$product_id}\">{$c_data['product_name']}</a></h5>
                             <div class=\"product-quantity mt-10 mb-10\">
                                 <!-- <span class=\"cart-minus\">-</span>
                                 <input class=\"cart-input\" type=\"text\" value=\"1\" />

@@ -31,6 +31,14 @@ if (isset($_GET['action']) && $_GET['action'] == "checkout") {
     // $msg = "checkout are not avalable, we are fixing.";
     // $msg_class = "alert-danger";
     // $st_msg = "Sorry";
+}else if(isset($_GET['action']) && $_GET['action'] == "logout"){
+    $token = $_SESSION['token']??null;
+    $response = $api->callAPI("/logout",'POST',[],$token); // Example GET request
+    if($response && ($response['status_code'] == 200)){
+        $msg = $response['message'];
+        $msg_class = "alert-success";
+        $st_msg = "Congratulations";
+    }
 }
 
 if (isset($_GET['download'])) {
@@ -97,12 +105,13 @@ if (isset($_GET['remove_cart'])) {
             $msg = "Product removed from your cart";
             $msg_class = "alert-danger";
             $st_msg = "Ok";
-            removeURLParams(['id', 'remove_cart']);
+            header("location: product-details.php");
+
         }else{
             $msg = "Product removed from your cart feiled";
             $msg_class = "alert-danger";
             $st_msg = "Sorry";
-            removeURLParams(['id', 'remove_cart']);
+            header("location: product-details.php");
 
         }
         
@@ -138,7 +147,7 @@ $cart_count = count($cart_data);
     <link rel="stylesheet" href="assets/css/default.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <script src="assets/js/Khqr-1.0.16.min.js"></script>
+    <script src="./assets/js/khqr-1.0.16.min.js"></script>
     <!-- <script src="https://github.com/davidhuotkeo/bakong-khqr/releases/download/bakong-khqr-1.0.6/khqr-1.0.6.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>

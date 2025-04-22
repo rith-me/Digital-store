@@ -2,6 +2,7 @@
 // print_r($shopAction->availableDownloads());
 $api = new APIClient();
 $token = $_SESSION['token']??null;
+$token_seller = $_SESSION['token_seller']??null;
 $response = $api->callAPI("/cart/orders",'GET',[],$token); // Example GET request
 $orderData = $response['data'] ??[];
 ?>
@@ -20,10 +21,10 @@ $orderData = $response['data'] ??[];
             <div class="col-lg-3 col-md-4">
                 <div class="myaccount-tab-menu nav" role="tablist">
                     <a href="#dashboad" class="active" data-bs-toggle="tab">Dashboard</a>
-                    <a href="#orders" data-bs-toggle="tab">Orders</a>
+                    <a href="#orders" data-bs-toggle="tab">Orders History</a>
                     <!-- <a href="#download" data-bs-toggle="tab">Download</a> -->
-                    <a href="#payment-method" data-bs-toggle="tab">Payment Method</a>
-                    <a href="#address-edit" data-bs-toggle="tab">Address</a>
+                    <!-- <a href="#payment-method" data-bs-toggle="tab">Payment Method</a>
+                    <a href="#address-edit" data-bs-toggle="tab">Address</a> -->
                     <a href="#account-info" data-bs-toggle="tab">Account Details</a>
                     <a href="?action=logout">Logout</a>
                 </div>
@@ -52,7 +53,7 @@ $orderData = $response['data'] ??[];
                     <!-- Single Tab Content Start -->
                     <div class="tab-pane fade" id="orders" role="tabpanel">
                         <div class="myaccount-content">
-                            <h3>Orders</h3>
+                            <h3>Orders History</h3>
                             <div class="myaccount-table table-responsive text-center">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
@@ -79,7 +80,7 @@ $orderData = $response['data'] ??[];
                                                         <td>{$date}</td>
                                                         <td>{$status}</td>
                                                         <td>\${$price}</td>
-                                                        <td><a href=\"cart.php\" class=\"check-btn sqr-btn\">View</a></td>
+                                                        <td><a href=\"claim.php?id={$i}\" class=\"check-btn sqr-btn\">View</a></td>
                                                     </tr>";
 
                                                 $i++;
@@ -252,7 +253,6 @@ $orderData = $response['data'] ??[];
 <script src="assets/js/plugins/ajax-mail.js"></script>
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
-<script src="assets/js/Khqr.js"></script>
 </body>
 
 </html>
