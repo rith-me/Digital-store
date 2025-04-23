@@ -32,7 +32,7 @@ if (isset($_GET['action']) && $_GET['action'] == "checkout") {
     // $msg_class = "alert-danger";
     // $st_msg = "Sorry";
 }else if(isset($_GET['action']) && $_GET['action'] == "logout"){
-    $token = $_SESSION['token']??null;
+    $token = $_SESSION['token']??$_COOKIE['token']??null;;
     $response = $api->callAPI("/logout",'POST',[],$token); // Example GET request
     if($response && ($response['status_code'] == 200)){
         $msg = $response['message'];
@@ -63,7 +63,7 @@ if (isset($_GET['add_to_cart'])) {
             // $data = ["product_id" => $pid, "user_id" => $user_id,  "price" => $cpd['priceUSD'], "user_type" => $user_type];
             // $q = $query->insertData("cart", $data);
             // MyLog('សារប្រតិបត្តិការ 1 '.json_encode($data));
-            $token = $_SESSION['token']??null;
+            $token = $_SESSION['token']??$_COOKIE['token']??null;;
             $data = ["product_id" => $pid, "quantity"=>1];
             
             $response = $api->callAPI("/cart/add",'POST',$data,$token); // Example GET request
@@ -97,7 +97,7 @@ if (isset($_GET['remove_cart'])) {
         $st_msg = "Dear";
     } else {
         // $q = $query->dropData("cart", "user_id='$user_id' and product_id='$pid'");
-        $token = $_SESSION['token']??null;
+        $token = $_SESSION['token']??$_COOKIE['token']??null;;
         $response = $api->callAPI("/cart/remove/$pid", 'DELETE', [], $token); // Example GET request
         // MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
         // MyLog('សារប្រតិបត្តិការ 4 '.json_encode($pid));
@@ -120,7 +120,7 @@ if (isset($_GET['remove_cart'])) {
 
 
 
-$token = $_SESSION['token']??null;
+$token = $_SESSION['token']??$_COOKIE['token']??null;;
 $cartResponse = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
 $cart_data = $cartResponse['data'] ??[];
 $cart_count = count($cart_data);
@@ -293,7 +293,7 @@ $cart_count = count($cart_data);
 
         if ($_GET['msg'] == "order successful"){
     
-            $token = $_SESSION['token']??null;
+            $token = $_SESSION['token']??$_COOKIE['token']??null;;
             $response = $api->callAPI("/cart/place-order", 'POST', [], $token); // Example GET request
           //MyLog('សារប្រតិបត្តិការ 33 '.json_encode($response));
         
