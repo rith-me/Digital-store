@@ -76,9 +76,10 @@ $orderData = $response['data'] ??[];
                                                 $status = $value['order_status'] ?? 'Completed';
                                                 $price = number_format($value['price'] ?? 0, 2); // Format to 2 decimal places
                                                 $order = $value['order_id'] ?? $i;
+                                                $formattedOrder = '#' . sprintf('%04d', $order);
                                                 $product = $value['product_name'] ?? 'N/A';
                                                 echo "<tr>
-                                                        <td>#00{$order}</td>
+                                                        <td>{$formattedOrder}</td>
                                                         <td>{$product}</td>
                                                         <td>{$date}</td>
                                                         <td>{$status}</td>
