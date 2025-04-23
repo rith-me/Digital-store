@@ -17,8 +17,8 @@ $orderData = $response['data'][$i-1] ??[];
       <bold class="lead  mb-4" width="80"><?php echo $orderData['product_claim']??'';?></bold>
       </div>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <button href="/" type="button" class="btn btn-primary btn-lg px-4 gap-3">Back</button>
-        <button href="index.php" type="button" class="btn btn-outline-secondary btn-lg px-4">Home</button>
+        <a href="index.php" type="button" class="btn btn-primary btn-lg px-4 gap-3">Back</a>
+        <a href="../index.php" type="button" class="btn btn-outline-secondary btn-lg px-4">Home</a>
       </div>
     </div>
   </div>

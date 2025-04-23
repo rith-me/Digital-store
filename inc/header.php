@@ -57,7 +57,7 @@ if (isset($_GET['add_to_cart'])) {
         // $caap = $query->fetchData("cart", "*", "user_id='$user_id' and product_id='$pid'");
         $cartResponse = $api->callAPI("/api/cart/view");
         $caap = $cartResponse['data']??[];
-        MyLog('សារប្រតិបត្តិការ 2 '.json_encode($caap));
+        // MyLog('សារប្រតិបត្តិការ 2 '.json_encode($caap));
 
         if (count($caap) == 0) {
             // $data = ["product_id" => $pid, "user_id" => $user_id,  "price" => $cpd['priceUSD'], "user_type" => $user_type];
@@ -99,11 +99,11 @@ if (isset($_GET['remove_cart'])) {
         // $q = $query->dropData("cart", "user_id='$user_id' and product_id='$pid'");
         $token = $_SESSION['token']??null;
         $response = $api->callAPI("/cart/remove/$pid", 'DELETE', [], $token); // Example GET request
-        MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
-        MyLog('សារប្រតិបត្តិការ 4 '.json_encode($pid));
+        // MyLog('សារប្រតិបត្តិការ 3 '.json_encode($response));
+        // MyLog('សារប្រតិបត្តិការ 4 '.json_encode($pid));
         if($response && ($response['status_code'] === 200)){
             $msg = "Product removed from your cart";
-            $msg_class = "alert-danger";
+            $msg_class = "alert-success";
             $st_msg = "Ok";
             header("location: product-details.php");
 
@@ -117,6 +117,8 @@ if (isset($_GET['remove_cart'])) {
         
     }
 }
+
+
 
 $token = $_SESSION['token']??null;
 $cartResponse = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
@@ -285,7 +287,31 @@ $cart_count = count($cart_data);
         if ($_GET["msg"] != "msg") {
             $msg = $_GET["msg"];
             $msg_class = "alert-success";
+            
         }
+        MyLog('សារប្រតិបត្តិការ 32 '.json_encode($_GET["msg"]));
+
+        if ($_GET['msg'] == "order+successful"){
+    
+            $token = $_SESSION['token']??null;
+            $response = $api->callAPI("/cart/place-order", 'POST', [], $token); // Example GET request
+            MyLog('សារប្រតិបត្តិការ 33 '.json_encode($response));
+        
+            if($response && ($response['status_code'] === 200)){
+                $msg = "Order successfully. View in your account.";
+                $msg_class = "alert-success";
+                $st_msg = "Ok";
+                header("location: product-details.php");
+        
+            }else{
+                $msg = "Order feiled";
+                $msg_class = "alert-danger";
+                $st_msg = "Sorry";
+                header("location: product-details.php");
+        
+            }
+        }
+        $st_msg = $st_msg ?? "";
         $html = "<div class=\"alert {$msg_class} alert-dismissible\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
             <strong>{$st_msg}!</strong> {$msg}
