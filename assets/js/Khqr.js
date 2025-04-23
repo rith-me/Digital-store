@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Start periodic checks every 2 seconds
                 checkTransactionInterval = setInterval(() => {
                     fetchTransactionStatus(md5Value);
-                    console.log(3,md5Value);
+                    // console.log(3,md5Value);
                 }, 5000); // Check every 5 secondss
             } else {
                 console.error("MD5 value is not available.");

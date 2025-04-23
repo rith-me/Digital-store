@@ -51,7 +51,7 @@ class query //extends database //APIClient
         $values = "'" . implode("','", $values) . "'";
         $con = $this->connect();
         $q = "INSERT INTO $table ({$fields}) VALUES ({$values})";
-        MyLog('សារប្រតិបត្តិការ '.json_encode($q));
+      //MyLog('សារប្រតិបត្តិការ '.json_encode($q));
         $q = $con->prepare($q);
         $q->execute();
         $insert_id = $con->lastInsertId();
@@ -151,7 +151,7 @@ class query //extends database //APIClient
         }
 
         // Log response
-        MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($responseData, JSON_UNESCAPED_UNICODE));
+      //MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($responseData, JSON_UNESCAPED_UNICODE));
 
         // Validate response structure
         if (isset($responseData['status_code']) && $responseData['status_code'] == 200) {
@@ -341,7 +341,7 @@ class auth extends query
             // Decode JSON response
             $responseData = json_decode($response, true);
             $res = (object)$responseData;
-            MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
+          //MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
             if($res->status_code == 200){
                 $_SESSION['user_login'] = true;
                 // print_r($res->data['user']);
@@ -399,7 +399,7 @@ class auth extends query
             $responseData = json_decode($response, true);
             // print_r($responseData);
             $res = (object)$responseData;
-            MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
+          //MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
             if($res->status == 'ok'){
                 $_SESSION['user_login'] = true;
                 $ex_user = $_SESSION['user_id'];

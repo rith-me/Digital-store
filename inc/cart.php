@@ -64,7 +64,7 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
                 <div class="cartmini__checkout-btn">
                     <!-- <a href="cart.php" class="m-btn m-btn-border mb-10 w-100"> <span></span> view cart</a> -->
                     <!-- <a href="?action=checkout" class="m-btn m-btn-3 w-100" id="checkout"> <span></span> checkout</a> -->
-                    <div class="m-btn m-btn-3 w-100" id="checkout"> <span></span> checkout</div>
+                    <div class="m-btn m-btn-3 w-100 " id="<?php echo $cart_total > 0 ? 'checkout' :''; ?>" > <span></span> checkout</div>
                 </div>
             </div>
         </div>
