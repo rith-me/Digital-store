@@ -12,7 +12,7 @@ $response = $api->callAPI("/public/products?per_page=9");
 $p_data_9 = $response['data']['data']??null;
 // print_r($p_data_9);
 
-$token = $_SESSION['token']??null;
+$token = $_SESSION['token']??$_COOKIE['token']??null;
 $response = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
 $cart_data = $response['data'] ??[];
 // MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart_data, JSON_UNESCAPED_UNICODE));
@@ -70,6 +70,15 @@ $html = "";
 
 <main>
 
+   <?php
+   if(isset($_POST['query'])){
+      $d = (object)$_POST;
+      $query = $d->query;
+      $_SESSION['query'] = $query;
+      $response = $api->callAPI("/search-products?query=$query");
+      $p_data_9 = $p_data_6 = $response['data']??null;
+   }
+   ?>
     <!-- hero area start -->
    <section class="hero__area hero__height grey-bg-3 d-flex align-items-center">
       <div class="hero__shape">
@@ -90,11 +99,11 @@ $html = "";
                      </h2>
                      <p>—Your Next Favorite Software is Just a Click Away.</p>
                      <div class="hero__search">
-                           <form action="#">
+                           <form action="index.php" method="post">
                               <div class="hero__search-inner d-xl-flex">
                                  <div class="hero__search-input">
                                        <span><i class="far fa-search"></i></span>
-                                       <input type="text" placeholder="Search for templates">
+                                       <input type="text" name="query" value="<?php echo $_SESSION['query']??'' ?>" placeholder="Search for templates">
                                  </div>
                                  <button type="submit" class="m-btn ml-20"> <span></span> search</button>
                               </div>
@@ -122,6 +131,8 @@ $html = "";
       </div>
    </section>
    <!-- hero area end -->
+
+   
 
    <!-- category area start -->
    <section class="category__area pt-105 pb-135">
@@ -215,9 +226,7 @@ $html = "";
       </div>
    </section>
    <!-- category area end -->
-
    
-
    <!-- trending area start -->
    <section class="trending__area pt-110 pb-110 grey-bg">
     <div class="container">
@@ -239,14 +248,14 @@ $html = "";
             if($p_data_9)
             foreach ($p_data_9 as $key => $value) {
                 // កាត់ចំណងជើង និង excerpt
-                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
-                $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : (isset($value['name']) ? mb_substr($value['name'], 0, 30) . ".." :"");
+                $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : (isset($value['detail']) ? mb_substr($value['detail'], 0, 30) . ".." :"");
 
                 // ទាញយកតម្លៃពី database
                //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
 
                 // ពិនិត្យថា $priceData មានទិន្នន័យឬអត់
-                $price = $value['priceUSD']??0 ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
+                $price = $value['priceUSD']??$value['price']??0 ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
 
                 // ប្តូរ 0 ទៅជា "FREE!"
                 $price = ($price == 0) ? "FREE!" : "$" . $price;
@@ -266,7 +275,7 @@ $html = "";
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">'.$value['category'].'</a>
+                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_name']).'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>
@@ -328,8 +337,8 @@ $html = "";
             if($p_data_6)
             foreach ($p_data_6 as $key => $value) {
                // កាត់ចំណងជើង និង excerpt
-               $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
-               $excerpt = isset($value['category']) ? mb_substr($value['category'], 0, 30) . ".." : "";
+               $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : (isset($value['name']) ? mb_substr($value['name'], 0, 30) . ".." :"");
+               $excerpt = isset($value['category']) ? mb_substr($value['category'], 0, 30) . ".." : (isset($value['category_name']) ? mb_substr($value['category_name'], 0, 30) . ".." :"");
 
                // ទាញយកតម្លៃពី database
                // $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
@@ -353,7 +362,7 @@ $html = "";
                         <div class="product__content">
                            <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                               <div class="product__tag">
-                                    <a href="#">'.$value['category'].'</a>
+                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_name']).'</a>
                               </div>
                               <div class="product__price">
                                     <span>' . $price . '</span>
@@ -373,69 +382,6 @@ $html = "";
          ?>
 
 
-
-         </div>
-         <div class="row">
-               <div class="col-xxl-12">
-                  <div class="product__more text-center mt-30">
-                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore </a>
-                  </div>
-               </div>
-         </div>
-      </div>
-   </section>
-   <!-- product area end -->
-
-   <!-- product area start -->
-   <section class="product__area d-none pt-105 pb-110 grey-bg-2">
-      <div class="container">
-         <div class="row">
-               <div class="col-xxl-12">
-                  <div class="section__title-wrapper text-center mb-60">
-                     <h2 class="section__title">Latest <br>  Products</h2>
-                     <p>From multipurpose themes to niche templates</p>
-                  </div>
-               </div>
-         </div>
-         <div class="row">
-         <?php
-               if($p_data_6)
-               foreach ($p_data_6 as $key => $value) {
-                  $product_title =  mb_substr($value['product_title'], 0, 30) . "..";
-                  $excerpt = mb_substr($value['product_content'], 0, 30) . "..";
-
-                  $price = (int)$query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'")[0]['min_price'];
-                  if ($price == 0) {
-                     $price = "FREE!";
-                  }
-                  echo $html = "<div class=\"col-xxl-4 col-xl-4 col-lg-4 col-md-6\">
-               <div class=\"product__item white-bg mb-30 wow fadeInUp\" data-wow-delay=\".3s\">
-                  <div class=\"product__thumb\">
-                     <div class=\"product__thumb-inner fix w-img\">
-                        <a href=\"product-details.php?id={$value['id']}\">
-                           <img src=\"{$value['product_image']}\" alt=\"\">
-                        </a>
-                     </div>
-                  </div>
-                  <div class=\"product__content\">
-                     <div class=\"product__meta mb-10 d-flex justify-content-between align-items-center\">
-                        <div class=\"product__tag\">
-                           <a href=\"#\">{$value['category']}</a>
-                        </div>
-                        <div class=\"product__price\">
-                           <span>" . (is_numeric($price) ? "$" . $price : $price) . "</span>
-                        </div>
-                     </div>
-                     <h3 class=\"product__title\">
-                        <a href=\"product-details.php?id={$value['id']}\">{$product_title}</a>
-                     </h3>
-                     <p class=\"product__author\">by <a href=\"#\">Theme Pure</a> in <a href=\"#\">Templates</a></p>
-                  </div>
-               </div>
-            </div>";
-               }
-
-         ?>
 
          </div>
          <div class="row">
@@ -715,60 +661,40 @@ $html = "";
                                         <li><a href="#" class="pin"><i class="fab fa-pinterest-p"></i></a></li>
                                     </ul>
                                 </div>
-                                <div class="footer__lang">
+                                <!-- <div class="footer__lang">
                                     <span><a href="#">US</a> English</span>
                                     <span><a href="#">ES</a> Spanish</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay=".5s">
+                        <div class="footer__widget mb-40 wow fadeInUp " data-wow-delay=".5s">
                             <div class="footer__widget-head">
                                 <h4 class="footer__widget-title">Products</h4>
                             </div>
                             <div class="footer__widget-content">
                                 <div class="footer__link">
                                     <ul>
-                                        <li><a href="#">Tutor LMS </a></li>
-                                        <li><a href="#">WP Mega Menu </a></li>
-                                        <li><a href="#">WP Page Builder </a></li>
-                                        <li><a href="#">Themes</a></li>
-                                        <li><a href="#">Interactions</a></li>
+                                        <li><a href="#">Home </a></li>
+                                        <li><a href="#">License Key </a></li>
+                                        <li><a href="#">Account </a></li>
+                                        <li><a href="#">subscription</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4">
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
                         <div class="footer__widget mb-40 wow fadeInUp footer__pl" data-wow-delay=".7s">
                             <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Resources</h4>
-                            </div>
-                            <div class="footer__widget-content">
-                                <div class="footer__link">
-                                    <ul>
-                                        <li><a href="#">Promotion </a></li>
-                                        <li><a href="#">Submit Content</a></li>
-                                        <li><a href="#">Resources</a></li>
-                                        <li><a href="#">Design System</a></li>
-                                        <li><a href="#">Expert</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay=".9s">
-                            <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Products</h4>
+                                <h4 class="footer__widget-title">About</h4>
                             </div>
                             <div class="footer__widget-content">
                                 <div class="footer__link">
                                     <ul>
                                         <li><a href="#">About Us</a></li>
                                         <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Support</a></li>
                                         <li><a href="#">Pricing</a></li>
                                         <li><a href="#">Contact</a></li>
                                     </ul>
@@ -776,23 +702,13 @@ $html = "";
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay="1.2s">
-                            <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Community</h4>
-                            </div>
-                            <div class="footer__widget-content">
-                                <div class="footer__link">
-                                    <ul>
-                                        <li><a href="#">Forums</a></li>
-                                        <li><a href="#">Community</a></li>
-                                        <li><a href="#">Meetups</a></li>
-                                        <li><a href="#">Jobs</a></li>
-                                        <li><a href="#">Careers</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-4">
+                     <div class="footer__widget mb-40 wow fadeInUp footer__pl" data-wow-delay=".9s">
+                        <div class="contact__map">
+                           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4781197396497!2d104.92751731539378!3d11.56210899210271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095164d0deffb7%3A0xa0cc1982d50be5a1!2sPhnom%20Penh%2C%20Cambodia!5e0!3m2!1sen!2sus!4v1617728495854!5m2!1sen!2sus"></iframe>
                         </div>
+                     </div>
+                     
                     </div>
                 </div>
             </div>
@@ -803,7 +719,7 @@ $html = "";
                     <div class="row">
                         <div class="col-xxl-6 col-xl-6 col-md-6">
                             <div class="footer__copyright wow fadeInUp" data-wow-delay=".5s">
-                                <p>Copyright © 2021 All Rights Reserved, Design by <a href="#">Theme Pure</a></p>
+                                <p>Copyright © 2025 All Rights Reserved</p>
                             </div>
                         </div>
                         <div class="col-xxl-6 col-xl-6 col-md-6">

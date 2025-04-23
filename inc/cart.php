@@ -3,7 +3,7 @@
 // $cart_data = $query->fetchData("cart", "*", "user_id='$user_id'");
 $auth = new auth();
 $api = new APIClient();
-$token = $_SESSION['token']??null;
+$token = $_SESSION['token']??$_COOKIE['token']??null;;
 $response = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
 $cart_data = $response['data'] ??[];
 MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart_data, JSON_UNESCAPED_UNICODE));

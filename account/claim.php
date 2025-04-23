@@ -1,7 +1,7 @@
 <?php require('header.php'); 
 $api = new APIClient();
 $i = $_GET['id']??0;
-$token = $_SESSION['token']??null;
+$token = $_SESSION['token']??$_COOKIE['token']??null;;
 $token_seller = $_SESSION['token_seller']??null;
 $response = $api->callAPI("/cart/orders",'GET',[],$token); // Example GET request
 $orderData = $response['data'][$i-1] ??[];

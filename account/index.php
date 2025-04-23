@@ -1,7 +1,7 @@
 <?php include("header.php");
 // print_r($shopAction->availableDownloads());
 $api = new APIClient();
-$token = $_SESSION['token']??null;
+$token = $_SESSION['token']??$_COOKIE['token']??null;;
 $token_seller = $_SESSION['token_seller']??null;
 $response = $api->callAPI("/cart/orders",'GET',[],$token); // Example GET request
 $orderData = $response['data'] ??[];
@@ -79,7 +79,7 @@ $orderData = $response['data'] ??[];
                                                 $formattedOrder = '#' . sprintf('%04d', $order);
                                                 $product = $value['product_name'] ?? 'N/A';
                                                 echo "<tr>
-                                                        <td>{$formattedOrder}</td>
+                                                        <td>{$formattedOrder}</td> 
                                                         <td>{$product}</td>
                                                         <td>{$date}</td>
                                                         <td>{$status}</td>

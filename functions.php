@@ -190,7 +190,7 @@ class shopAction extends query
     function checkout()
     {
         $auth = new auth();
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
         if ($auth->isLogin()) {
             $order_hash = $this->createOrder();
             header("location: razorpay/pay.php?order=$order_hash");
@@ -203,7 +203,7 @@ class shopAction extends query
     function isPurchased($product_id)
     {
         $query = new query;
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
         $data = $query->fetchData("orders_meta", "parent_id", "customer_id='$user_id' AND product_id='$product_id'");
         if (count($data) == 0) {
             return false;
@@ -238,7 +238,7 @@ class shopAction extends query
     }
     function orderData()
     {
-        $user_id = $_SESSION['user_id'];
+        $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
         $order_data = $this->fetchData("orders", "*", "customer_id='$user_id'");
         return $order_data;
     }
@@ -274,8 +274,9 @@ class auth extends query
 {
     function isLogin()
     {
-        
-        if ((isset($_SESSION['user_login']) ? $_SESSION['user_login'] : null)  == true) {
+        $cookie = (object)$_COOKIE;
+
+        if ((isset($_SESSION['user_login']) ? $_SESSION['user_login'] : ($cookie->user_login??null))  == true) {
             return true;
         } else {
             return false;
@@ -293,9 +294,9 @@ class auth extends query
             $hash = $q['user_pass'];
             if ($this->verifyPass($password, $hash)) {
                 $_SESSION['user_login'] = true;
-                $ex_user = $_SESSION['user_id'];
+                $ex_user = $_SESSION['user_id']??$_COOKIE['user_id'];
                 $_SESSION['user_id'] = $q['ID'];
-                $user_id = $_SESSION['user_id'];
+                $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
                 $cart_update = $this->updateData("cart", "user_id='$user_id'", "user_id='$ex_user'");
                 $msg = "login successful";
             } else {
@@ -346,10 +347,12 @@ class auth extends query
                 $_SESSION['user_login'] = true;
                 // print_r($res->data['user']);
 
-                $ex_user = $_SESSION['user_id'];
-                $_SESSION['user_id'] = $res->data['user']['id']??0;
-                $_SESSION['token'] = $res->data['token']??'null';
-                $user_id = $_SESSION['user_id'];
+                $ex_user = $_SESSION['user_id']??$_COOKIE['user_id'];
+                $user = $_SESSION['user_id'] = $res->data['user']['id']??0;
+                $token = $_SESSION['token'] = $res->data['token']??'null';
+                setcookie("user_id",$user,time()+(60*60));
+                setcookie("token",$token,time()+(60*60));
+                $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
                 $msg = "login successful";
             }else
                 $msg = $res->error_message ?? 'Wrong email or password';
@@ -402,10 +405,12 @@ class auth extends query
           //MyLog('សារប្រតិបត្តិការ 2: '.json_encode($responseData));
             if($res->status == 'ok'){
                 $_SESSION['user_login'] = true;
-                $ex_user = $_SESSION['user_id'];
-                $_SESSION['user_id'] = $res->data['user']['id']??0;
-                $_SESSION['token'] = $res->data['token']??'null';
-                $created_user_id = $_SESSION['user_id'];
+                $ex_user = $_SESSION['user_id']??$_COOKIE['user_id'];
+                $user = $_SESSION['user_id'] = $res->data['user']['id']??0;
+                $token = $_SESSION['token'] = $res->data['token']??'null';
+                setcookie("user_id",$user,time()+(60*60));
+                setcookie("token",$token,time()+(60*60));
+                $created_user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
                 $msg = "registe successful";
             }else
                 $msg = $res->error_message ?? 'registe faild';
@@ -435,7 +440,7 @@ class auth extends query
     {
         if ($this->isLogin()) {
 
-            $token = $_SESSION['token'];
+            $token = $_SESSION['token']??$_COOKIE['token'];
             // $user_data = $this->fetchData("users", "*", "ID='$user_id'");
             // return $user_data[0];
             
@@ -519,7 +524,7 @@ class files extends shopAction
                 $file = $query->fetchData("files", "url", "parent_id='$product_id'")[0]['url'];
                 header("location: $file");
             } else if ($this->isPurchased($product_id)) {
-                $user_id = $_SESSION['user_id'];
+                $user_id = $_SESSION['user_id']??$_COOKIE['user_id'];
                 $query->fetchData("orders",);
                 $file = $query->fetchData("files", "url", "parent_id='$product_id'")[0]['url'];
                 header("location: $file");
