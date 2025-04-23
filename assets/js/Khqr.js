@@ -128,9 +128,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
                 if (data.responseMessage === 'Success') { // If transaction is successful
-                    statusElement.innerHTML = `<span class="text-success">Transaction Status: ${data.status}</span>`;
+                    // statusElement.innerHTML = `<span class="text-success">Transaction Status: ${data.status}</span>`;
                     // Redirect to the home page after successful transaction
-                    window.location.href = '/index.php?msg=order+successful'; // Redirects to the home page (or specify any other URL)
+                    window.location.href = 'index.php?msg=order+successful'; // Redirects to the home page (or specify any other URL)
+                    // window.location.href = 'DigitalStore/digital-assets-ecommerce-master/index.php?msg=order+successful'; // Redirects to the home page (or specify any other URL)
                     // Clear the interval after success
                     clearInterval(checkTransactionInterval);
                 }
