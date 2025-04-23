@@ -59,9 +59,10 @@ $orderData = $response['data'] ??[];
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Order</th>
+                                            <th>Product</th>
                                             <th>Date</th>
                                             <th>Status</th>
-                                            <th>Total</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -74,9 +75,11 @@ $orderData = $response['data'] ??[];
                                                 $date = !empty($value['ordered_at']) ? date("M d, Y", strtotime($value['ordered_at'])) : 'N/A';
                                                 $status = $value['order_status'] ?? 'Completed';
                                                 $price = number_format($value['price'] ?? 0, 2); // Format to 2 decimal places
-                                                $order = $value['id'] ?? $i;
+                                                $order = $value['order_id'] ?? $i;
+                                                $product = $value['product_name'] ?? 'N/A';
                                                 echo "<tr>
-                                                        <td>{$order}</td>
+                                                        <td>#00{$order}</td>
+                                                        <td>{$product}</td>
                                                         <td>{$date}</td>
                                                         <td>{$status}</td>
                                                         <td>\${$price}</td>

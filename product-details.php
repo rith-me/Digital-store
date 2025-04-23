@@ -16,6 +16,9 @@ if (!isset($_GET['id'])) {
       header("location: index.php");
    }else
    $p_data = $response['data']??[];
+
+   $response = $api->callAPI("/public/products"); // Example GET request
+   $p_data_9 = $response['data']['data']??null;
 }
 $price = $p_data['priceUSD']??0;//(int)$query->fetchData("product_meta", "min_price", "product_id='$p_id'")[0]['min_price'];
 $date = date("F j, Y", strtotime(isset($p_data['publish_date']) ? $p_data['publish_date'] : $p_data['created_at'] ?? null));
@@ -224,7 +227,7 @@ if(!isset($_SESSION['token'])){
                               <span>Redux:</span>
                            </li>
                         </ul>
-                        <a href="<?php echo $buy_now_btn_link; ?>" class="m-btn m-btn-2 w-100 mb-20"> <span></span> <?php echo $buy_now_btn_text; ?></a>
+                        <a href="<?php echo $buy_now_btn_link; ?>" class="m-btn m-btn-2 w-100 mb-20" > <span></span> <?php echo $buy_now_btn_text; ?></a>
                         <!-- <a href="pricing.php" class="m-btn m-btn-border w-100"> <span></span> Preview Project</a> -->
                      </div>
                   </div>
@@ -239,6 +242,69 @@ if(!isset($_SESSION['token'])){
    </section>
    <!-- product area end -->
 
+   <!-- trending area start -->
+   <section class="trending__area pt-110 pb-110 grey-bg">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-xxl-6 col-xl-6 col-lg col-md-8">
+                <div class="section__title-wrapper mb-50">
+                    <h2 class="section__title">Trending <br> Landmark Software</h2>
+                    <!-- <p>Jeffrey pardon me jolly good.</p> -->
+                </div>
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg col-md-4">
+                <div class="trending__more d-flex justify-content-md-end  mb-50 d-none">
+                    <a href="product.php" class="m-btn m-btn-border"><span></span>Explore Cloneables</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <?php
+            if(isset($p_data_9))
+            foreach ($p_data_9 as $key => $value) {
+                // កាត់ចំណងជើង និង excerpt
+                $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
+                $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+
+                // ទាញយកតម្លៃពី database
+               //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
+
+                // ពិនិត្យថា $priceData មានទិន្នន័យឬអត់
+                $price = $value['priceUSD']??0 ;// (!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
+
+                // ប្តូរ 0 ទៅជា "FREE!"
+                $price = ($price == 0) ? "FREE!" : "$" . $price;
+
+                // Generate HTML
+                echo '<div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6">
+                    <div class="trending__item d-sm-flex white-bg mb-30 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="trending__thumb mr-25">
+                            <div class="trending__thumb-inner fix">
+                                <a href="product-details.php?id=' . $value['id'] . '">
+                                    <img src="' . (isset($value['image_url']) ? $value['image_url'] : '') . '" alt="" class="product_img_102">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="trending__content">
+                            <h3 class="trending__title"><a href="product-details.php?id=' . $value['id'] . '">' . $product_title . '</a></h3>
+                            <p>Click to see full information.</p>
+                            <div class="trending__meta d-flex justify-content-between">
+                                <div class="trending__tag">
+                                    <a href="#">'.$value['category'].'</a>
+                                </div>
+                                <div class="trending__price">
+                                    <span>' . $price . '</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+               }
+               ?>
+         </div>
+      </div>
+   </section>
+   <!-- trending area end -->
 
    <!-- subscribe area start -->
    <section class="subscribe__area p-relative pt-100 pb-110"

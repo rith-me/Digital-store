@@ -289,29 +289,33 @@ $cart_count = count($cart_data);
             $msg_class = "alert-success";
             
         }
-        MyLog('សារប្រតិបត្តិការ 32 '.json_encode($_GET["msg"]));
+      //MyLog('សារប្រតិបត្តិការ 32 '.json_encode($_GET["msg"]));
 
-        if ($_GET['msg'] == "order+successful"){
+        if ($_GET['msg'] == "order successful"){
     
             $token = $_SESSION['token']??null;
             $response = $api->callAPI("/cart/place-order", 'POST', [], $token); // Example GET request
-            MyLog('សារប្រតិបត្តិការ 33 '.json_encode($response));
+          //MyLog('សារប្រតិបត្តិការ 33 '.json_encode($response));
         
             if($response && ($response['status_code'] === 200)){
-                $msg = "Order successfully. View in your account.";
-                $msg_class = "alert-success";
-                $st_msg = "Ok";
-                header("location: product-details.php");
-        
+                header("location: index.php?msg=msg");
+                $_SESSION['msg'] = $msg = "Order successfully. View in your account.";
+                $_SESSION['msg_class'] = $msg_class = "alert-success";
+                $_SESSION['st_msg'] = $st_msg = "Congratulations";
+
             }else{
-                $msg = "Order feiled";
-                $msg_class = "alert-danger";
-                $st_msg = "Sorry";
-                header("location: product-details.php");
+                header("location: index.php?msg=msg");
+                $_SESSION['msg'] = $msg = "Order feiled";
+                $_SESSION['msg_class'] = $msg_class = "alert-danger";
+                $_SESSION['st_msg'] = $st_msg = "Sorry";
         
             }
         }
-        $st_msg = $st_msg ?? "";
+
+        $st_msg = $st_msg ?? (isset($_SESSION['st_msg']) ? $_SESSION['st_msg']: '' );
+        $msg_class = $msg_class ?? (isset($_SESSION['msg_class']) ? $_SESSION['msg_class']: '');
+        $msg = $msg ?? (isset($_SESSION['msg']) ? $_SESSION['msg']: '');
+
         $html = "<div class=\"alert {$msg_class} alert-dismissible\">
             <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
             <strong>{$st_msg}!</strong> {$msg}
