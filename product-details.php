@@ -102,7 +102,7 @@ if(!isset($_SESSION['token'])){
                         <div class="tab-content" id="proTabContent">
                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
                               <div class="product__overview">
-                                 <h3 class="product__overview-title">Template Details</h3>
+                                 <h3 class="product__overview-title">Product Details</h3>
                                  <?php echo $p_data['product_detail']; ?>
                                  <div class="product__social m-social grey-bg-2">
                                     <h4 class="product__social-title">Follow us</h4>

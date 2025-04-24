@@ -103,7 +103,7 @@ $html = "";
                               <div class="hero__search-inner d-xl-flex">
                                  <div class="hero__search-input">
                                        <span><i class="far fa-search"></i></span>
-                                       <input type="text" name="query" value="<?php echo $_SESSION['query']??'' ?>" placeholder="Search for templates">
+                                       <input type="text" name="query" value="<?php echo $_SESSION['query']??'' ?>" placeholder="Search for products">
                                  </div>
                                  <button type="submit" class="m-btn ml-20"> <span></span> search</button>
                               </div>
