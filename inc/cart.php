@@ -110,7 +110,7 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
     </div>
 </div>
 
-<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -121,6 +121,32 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
         <canvas id="qrCodeCanvas"></canvas>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 380px;">
+    <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+      <!-- Header section -->
+      <div style="background-color: #d32f2f; color: white; padding: 1rem; position: relative;">
+        <div style="font-size: 1.5rem; font-weight: bold; text-align: center;">KHQR</div>
+        <!-- Optionally add corner cut style here with CSS if needed -->
+      </div>
+
+      <!-- Body section -->
+      <div class="modal-body py-4 px-5">
+        <div id="qrName" class="px-3" style="font-weight: bold; font-size: 1.1rem;">CHANNARITH PRUM</div>
+        <div class="text-center">
+            <hr class="m-3" style="margin: 1rem 0;" />
+            <!-- QR Code canvas -->
+            <canvas id="qrCodeCanvas" style="max-height: 100% !important; "></canvas>
+        </div>
+      </div>
+
+      <!-- Footer section -->
+      <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

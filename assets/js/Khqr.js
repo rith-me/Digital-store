@@ -33,9 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Generate the QR code onto the canvas
             QRCode.toCanvas(qrCodeCanvas, qrCodeData, function (error) {
-            if (error) console.error(error);
+                if (error) console.error(error);
             });
-
+            qrCodeCanvas.style.width = '100%';
+            qrCodeCanvas.style.height = '100%';
             // Show the modal
             const qrCodeModal = new bootstrap.Modal(document.getElementById("qrCodeModal"));
             qrCodeModal.show();
