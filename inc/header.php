@@ -299,7 +299,7 @@ $cart_count = count($cart_data);
         
             if($response && ($response['status_code'] === 200)){
                 header("location: index.php?msg=msg");
-                $_SESSION['msg'] = $msg = "Order successfully. View in your account.";
+                $_SESSION['msg'] = $msg = "Order successfully. Thank you for order, View more in your account.";
                 $_SESSION['msg_class'] = $msg_class = "alert-success";
                 $_SESSION['st_msg'] = $st_msg = "Congratulations";
 
