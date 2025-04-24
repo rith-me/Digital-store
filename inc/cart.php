@@ -150,7 +150,7 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" onclick="downloadQRCode()"><i class="fas fa-download"></i></button>
       </div>
-    </div>
+    </div>  
   </div>
 </div>
 
