@@ -148,7 +148,19 @@ MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart
       <!-- Footer section -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="downloadQRCode()"><i class="fas fa-download"></i></button>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+function downloadQRCode() {
+  const canvas = document.getElementById("qrCodeCanvas");
+  const image = canvas.toDataURL("image/png"); // Get image data from canvas
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "khqr-code.png";
+  link.click(); // Trigger download
+}
+</script>
