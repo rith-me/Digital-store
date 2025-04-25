@@ -1,17 +1,30 @@
 <?php require('inc/header.php'); 
 $api = new APIClient();
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) && !isset($_GET['category'])) {
    header("location: index.php");
 } else {
-   $p_id = $_GET['id'];
-   $response = $api->callAPI("/public/categories/$p_id/products");
+   $foundId = null;
+   if(isset($_GET['category'])){
+      $response = $api->callAPI("/public/categories"); // Example GET request
+      $catagories = $response['data']??null;
+      $targetName = $_GET['category'];
+      
+      foreach ($catagories as $item) {
+         if (strtolower($item['name']) === strtolower($targetName)) {
+             $foundId = $item['id'];
+             break;
+         }
+     }
+   }
+   $c_id = $_GET['id'] ?? $foundId;
+
+   $response = $api->callAPI("/public/categories/$c_id/products");
    if($response['status_code'] != 200){
       header("location: index.php");
    }else
    $p_data = $response['data']??[];
-   // print_r($p_data);
-   $response = $api->callAPI("/public/products"); // Example GET request
+   $response = $api->callAPI("/public/products?per_page=9"); // Example GET request
    $p_data_9 = $response['data']['data']??null;
 }
 ?>
@@ -239,6 +252,7 @@ if (!isset($_GET['id'])) {
                   foreach ($p_data as $key => $value) {
                      $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
                      $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+                     $catagory = (isset($value['category']) ? $value['category'] : ($value['category_name']??'Category'));
                     
                      $price = $value['priceUSD']??0 ;
      
@@ -258,7 +272,7 @@ if (!isset($_GET['id'])) {
                            <div class="product__content">
                               <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                                  <div class="product__tag">
-                                    <a href="#">License Key</a>
+                                    <a href="product.php?category='.$catagory.'">'.$catagory.'</a>
                                  </div>
                                  <div class="product__price">
                                     <span>' . $price . '</span>
@@ -548,6 +562,7 @@ if (!isset($_GET['id'])) {
                 // កាត់ចំណងជើង និង excerpt
                 $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
                 $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+                $catagory = (isset($value['category']) ? $value['category'] : ($value['category_name']??'Category'));
 
                 // ទាញយកតម្លៃពី database
                //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
@@ -573,7 +588,7 @@ if (!isset($_GET['id'])) {
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_id']).'</a>
+                                    <a href="product.php?category='.$catagory.'">'.$catagory.'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>

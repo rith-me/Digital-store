@@ -6,7 +6,7 @@ $api = new APIClient();
 $token = $_SESSION['token']??$_COOKIE['token']??null;;
 $response = $api->callAPI("/cart/view",'GET',[],$token); // Example GET request
 $cart_data = $response['data'] ??[];
-MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart_data, JSON_UNESCAPED_UNICODE));
+// MyLog('សារប្រតិបត្តិការ 2: ' . json_encode($cart_data, JSON_UNESCAPED_UNICODE));
 
 ?>
 <div class="cartmini__area">
