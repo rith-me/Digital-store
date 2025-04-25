@@ -16,60 +16,40 @@
                                         <li><a href="#" class="pin"><i class="fab fa-pinterest-p"></i></a></li>
                                     </ul>
                                 </div>
-                                <div class="footer__lang">
+                                <!-- <div class="footer__lang">
                                     <span><a href="#">US</a> English</span>
                                     <span><a href="#">ES</a> Spanish</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay=".5s">
+                        <div class="footer__widget mb-40 wow fadeInUp " data-wow-delay=".5s">
                             <div class="footer__widget-head">
                                 <h4 class="footer__widget-title">Products</h4>
                             </div>
                             <div class="footer__widget-content">
                                 <div class="footer__link">
                                     <ul>
-                                        <li><a href="#">Tutor LMS </a></li>
-                                        <li><a href="#">WP Mega Menu </a></li>
-                                        <li><a href="#">WP Page Builder </a></li>
-                                        <li><a href="#">Themes</a></li>
-                                        <li><a href="#">Interactions</a></li>
+                                        <li><a href="#">Home </a></li>
+                                        <li><a href="#">License Key </a></li>
+                                        <li><a href="#">Account </a></li>
+                                        <li><a href="#">subscription</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4">
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
                         <div class="footer__widget mb-40 wow fadeInUp footer__pl" data-wow-delay=".7s">
                             <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Resources</h4>
-                            </div>
-                            <div class="footer__widget-content">
-                                <div class="footer__link">
-                                    <ul>
-                                        <li><a href="#">Promotion </a></li>
-                                        <li><a href="#">Submit Content</a></li>
-                                        <li><a href="#">Resources</a></li>
-                                        <li><a href="#">Design System</a></li>
-                                        <li><a href="#">Expert</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay=".9s">
-                            <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Products</h4>
+                                <h4 class="footer__widget-title">About</h4>
                             </div>
                             <div class="footer__widget-content">
                                 <div class="footer__link">
                                     <ul>
                                         <li><a href="#">About Us</a></li>
                                         <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Support</a></li>
                                         <li><a href="#">Pricing</a></li>
                                         <li><a href="#">Contact</a></li>
                                     </ul>
@@ -77,23 +57,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-sm-4">
-                        <div class="footer__widget mb-40 wow fadeInUp" data-wow-delay="1.2s">
-                            <div class="footer__widget-head">
-                                <h4 class="footer__widget-title">Community</h4>
-                            </div>
-                            <div class="footer__widget-content">
-                                <div class="footer__link">
-                                    <ul>
-                                        <li><a href="#">Forums</a></li>
-                                        <li><a href="#">Community</a></li>
-                                        <li><a href="#">Meetups</a></li>
-                                        <li><a href="#">Jobs</a></li>
-                                        <li><a href="#">Careers</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-5 col-sm-4">
+                     <div class="footer__widget mb-40 wow fadeInUp footer__pl" data-wow-delay=".9s">
+                        <div class="contact__map">
+                           <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.4781197396497!2d104.92751731539378!3d11.56210899210271!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095164d0deffb7%3A0xa0cc1982d50be5a1!2sPhnom%20Penh%2C%20Cambodia!5e0!3m2!1sen!2sus!4v1617728495854!5m2!1sen!2sus"></iframe> -->
                         </div>
+                     </div>
+                     
                     </div>
                 </div>
             </div>
@@ -104,7 +74,7 @@
                     <div class="row">
                         <div class="col-xxl-6 col-xl-6 col-md-6">
                             <div class="footer__copyright wow fadeInUp" data-wow-delay=".5s">
-                                <p>Copyright © 2021 All Rights Reserved, Design by <a href="#">Theme Pure</a></p>
+                                <p>Copyright © 2025 All Rights Reserved</p>
                             </div>
                         </div>
                         <div class="col-xxl-6 col-xl-6 col-md-6">
