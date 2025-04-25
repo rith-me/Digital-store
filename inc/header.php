@@ -245,7 +245,7 @@ $cart_count = count($cart_data);
                                             <li><a href="blog-details.php">Blog Details</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="contact.php">Contact</a></li>
+                                    <li><a href="contact.php" class="">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>

@@ -6,10 +6,28 @@
 // $p_data_1 = $query->getProducts();
 // print_r($p_data_1);
 $api = new APIClient();
-$response = $api->callAPI("/public/products?per_page=6"); // Example GET request
+$t_per_page = 9;
+$p_per_page = 6;
+
+if(isset($_GET['load'])){
+   if($_GET['load'] == 't_load_more'){
+      $_SESSION['t_load_more'] = ($_SESSION['t_load_more'] ?? $t_per_page) + 3;
+      $t_per_page = $_SESSION['t_load_more'];
+   }
+   if($_GET['load'] == 'p_load_more'){
+      $_SESSION['p_load_more'] = ($_SESSION['p_load_more'] ?? $p_per_page) + 3;
+      $p_per_page = $_SESSION['p_load_more'];
+   }
+}else{
+   $_SESSION['t_load_more'] = $t_per_page;
+    $_SESSION['p_load_more'] = $p_per_page;
+}
+
+$response = $api->callAPI("/public/products?per_page=$p_per_page"); // Example GET request
 $p_data_6 = $response['data']['data']??null;
-$response = $api->callAPI("/public/products?per_page=9");
+$response = $api->callAPI("/public/products?per_page=$t_per_page");
 $p_data_9 = $response['data']['data']??null;
+$p_data_total = $response['data']['total'];
 // print_r($p_data_9);
 
 $token = $_SESSION['token']??$_COOKIE['token']??null;
@@ -75,9 +93,14 @@ $html = "";
       $d = (object)$_POST;
       $query = $d->query;
       $_SESSION['query'] = $query;
-      $response = $api->callAPI("/search-products?query=$query");
-      $p_data_9 = $p_data_6 = $response['data']??null;
+      if($query){
+         $response = $api->callAPI("/search-products?query=$query");
+         $p_data_9 = $p_data_6 = $response['data']??null;
+      }
+     
    }
+
+  
    ?>
     <!-- hero area start -->
    <section class="hero__area hero__height grey-bg-3 d-flex align-items-center">
@@ -250,6 +273,7 @@ $html = "";
                 // កាត់ចំណងជើង និង excerpt
                 $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : (isset($value['name']) ? mb_substr($value['name'], 0, 30) . ".." :"");
                 $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : (isset($value['detail']) ? mb_substr($value['detail'], 0, 30) . ".." :"");
+                $catagory = (isset($value['category']) ? $value['category'] : ($value['category_name']??'Category'));
 
                 // ទាញយកតម្លៃពី database
                //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
@@ -275,7 +299,7 @@ $html = "";
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_name']).'</a>
+                                    <a href="product.php?category='.$catagory.'">'.$catagory.'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>
@@ -286,6 +310,13 @@ $html = "";
                 </div>';
                }
                ?>
+         </div>
+         <div class="row <?php echo ($p_data_total > 9) ? '' : 'd-none' ;?> ">
+               <div class="col-xxl-12">
+                  <div class="product__more text-center mt-30">
+                     <a href="index.php?load=t_load_more"  class="m-btn m-btn-2"> <span></span> Load More </a>
+                  </div>
+               </div>
          </div>
       </div>
    </section>
@@ -345,7 +376,7 @@ $html = "";
 
                // ពិនិត្យថា $priceData មានតម្លៃឬអត់
                $price = $value['priceUSD']??0;//(!empty($priceData) && isset($priceData[0]['min_price'])) ? (int)$priceData[0]['min_price'] : 0;
-
+               $catagory = (isset($value['category']) ? $value['category'] : ($value['category_name']??'Category'));
                // ប្តូរ 0 ទៅជា "FREE!"
                $price = ($price == 0) ? "FREE!" : "$" . $price;
 
@@ -362,7 +393,7 @@ $html = "";
                         <div class="product__content">
                            <div class="product__meta mb-10 d-flex justify-content-between align-items-center">
                               <div class="product__tag">
-                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_name']).'</a>
+                                    <a href="product.php?category='.$catagory.'">'.$catagory.'</a>
                               </div>
                               <div class="product__price">
                                     <span>' . $price . '</span>
@@ -384,10 +415,10 @@ $html = "";
 
 
          </div>
-         <div class="row">
+         <div class="row <?php echo ($p_data_total > 6) ? '' : 'd-none' ;?>">
                <div class="col-xxl-12">
                   <div class="product__more text-center mt-30">
-                     <a href="product.php" class="m-btn m-btn-2"> <span></span> Explore </a>
+                     <a href="index.php?load=p_load_more"  class="m-btn m-btn-2"> <span></span> Load More </a>
                   </div>
                </div>
          </div>

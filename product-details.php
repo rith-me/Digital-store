@@ -265,6 +265,7 @@ if(!isset($_SESSION['token'])){
                 // កាត់ចំណងជើង និង excerpt
                 $product_title = isset($value['product_name']) ? mb_substr($value['product_name'], 0, 30) . ".." : "";
                 $excerpt = isset($value['product_content']) ? mb_substr($value['product_content'], 0, 30) . ".." : "";
+                $catagory = (isset($value['category']) ? $value['category'] : ($value['category_name']??'Category'));
 
                 // ទាញយកតម្លៃពី database
                //  $priceData = $query->fetchData("product_meta", "min_price", "product_id='{$value['id']}'");
@@ -290,7 +291,7 @@ if(!isset($_SESSION['token'])){
                             <p>Click to see full information.</p>
                             <div class="trending__meta d-flex justify-content-between">
                                 <div class="trending__tag">
-                                    <a href="#">'.(isset($value['category']) ? $value['category'] : $value['category_id']).'</a>
+                                <a href="product.php?category='.$catagory.'">'.$catagory.'</a>
                                 </div>
                                 <div class="trending__price">
                                     <span>' . $price . '</span>
